@@ -6,6 +6,6 @@ Para usar o sistema:
 
 2º crie um banco de dados MySQL com o nome "llrn"
 
-3º execute o código SQL presente no arquivo "SQL BD llrn"
+3º execute o código SQL presente no arquivo "SQL BD llrn" no banco de dados criado
 
-4º com o projeto aberto no NetBeans execute o projeto com o comando "shift + F6"
+4º execute o projeto no seu compilador
