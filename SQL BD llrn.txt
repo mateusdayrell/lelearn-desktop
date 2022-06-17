@@ -1,0 +1,16 @@
+CREATE TABLE usuarios (
+	cpf varchar(11) PRIMARY KEY,
+    nome varchar(255),
+    email varchar(255),
+    senha varchar(255),
+    telefone varchar(11),
+    sexo varchar(255),   
+    logradouro varchar(255),
+    numero varchar(255),
+    complemento varchar(255),
+    bairro varchar(255)
+);
+
+INSERT INTO usuarios (cpf, nome, senha) values ('12345678901', 'admin', '123')
+
+INSERT INTO usuarios (cpf, nome, email, senha) values ('12345678901', 'admin', 'admin', '123')
