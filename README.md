@@ -1,6 +1,6 @@
 # le-learn
 
-Para usar o sistema:
+Siga os seguintes passos para utilizar o sistema:
 
 1º clone o repositório
 
