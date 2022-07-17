@@ -17,14 +17,54 @@ private String senha;
 private String tipo;
 private String dataNasc;
 
+//Getters e Setters
 
+    public String getCpf() {
+        return cpf;
+    }
 
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-//CPF CHAR(11) PRIMARY KEY,
-//NOME VARCHAR(40) NOT NULL,
-//TELEFONE CHAR(11) NULL,
-//EMAIL VARCHAR(50) NOT NULL,
-//SENHA VARCHAR(15) NOT NULL,
-//TIPO VARCHAR(5) NOT NULL,
-//DATANASC DATE
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getDataNasc() {
+        return dataNasc;
+    }
+
+    public void setDataNasc(String dataNasc) {
+        this.dataNasc = dataNasc;
+    }
+
 }
