@@ -13,6 +13,7 @@ public class UsuarioMODEL {
 private String cpf;
 private String nome;
 private String telefone;
+private String email;
 private String senha;
 private String tipo;
 private String dataNasc;
@@ -41,6 +42,14 @@ private String dataNasc;
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getSenha() {
