@@ -18,7 +18,7 @@ public class ConnectionFactory {
         Connection conex = null;
         
         try {
-            String url = "jdbc:mysql://localhost:3306/llrn?user=root&password=";
+            String url = "jdbc:mysql://localhost:3306/llrn?user=root&password=123";
             conex = DriverManager.getConnection(url);
         } catch (SQLException erro) {
             throw new RuntimeException(erro);
