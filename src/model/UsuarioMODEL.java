@@ -17,6 +17,7 @@ private String email;
 private String senha;
 private String tipo;
 private String dataNasc;
+private String antigoCpf;
 
 //Getters e Setters
 
@@ -82,6 +83,14 @@ private String dataNasc;
 //        String dataMysql = ano+"-"+mes+"-"+dia;
         
         this.dataNasc = dataNasc;
+    }
+    
+    public String getAntigoCpf() {
+        return antigoCpf;
+    }
+
+    public void setAntigoCpf(String antigoCpf) {
+        this.antigoCpf = antigoCpf;
     }
 
 }

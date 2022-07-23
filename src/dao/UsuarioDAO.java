@@ -38,8 +38,7 @@ public class UsuarioDAO {
         }
     }
     
-    //método para cadastro de usuários
-
+    //método para listar usuarios
     public List<UsuarioMODEL> listarUsuarios() {
         try{
             //criar lista
@@ -74,7 +73,8 @@ public class UsuarioDAO {
             return null;
         }
     }
-
+    
+    //método para cadastrar usuarios
     public void cadastrarUsuario(UsuarioMODEL obj) {
         try {
             //criar o comando SQL
@@ -100,5 +100,57 @@ public class UsuarioDAO {
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário. \nUsuarioDAO: " + erro.getMessage());
         }
+    }
+    
+    //método para editar usuários
+    public void editarUsuario(UsuarioMODEL obj) {
+        try {
+            //criar o comando SQL
+            String sql = "update usuario set CPF=?, NOME=?, TELEFONE=?, EMAIL=?, SENHA=?, TIPO=?" // , DATANASC=?
+                       + "where CPF=?";
+            
+            //conectar BD e organizar comando SQL
+            PreparedStatement pstm = conex.prepareStatement(sql);
+            
+            //receber valores do Model (id da ?, valor)
+            pstm.setString(1, obj.getCpf());
+            pstm.setString(2, obj.getNome());
+            pstm.setString(3, obj.getTelefone());
+            pstm.setString(4, obj.getEmail());
+            pstm.setString(5, obj.getSenha());
+            pstm.setString(6, obj.getTipo());
+            //pstm.setString(7, obj.getDataNasc());
+            
+            pstm.setString(7, obj.getAntigoCpf());
+            
+            pstm.execute(); //executar comando
+            pstm.close();   //encerrar conexao
+            
+            JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!");
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário. \nUsuarioDAO: " + erro.getMessage());
+        }
+    }
+    
+    //método para excluir usuarios
+    public void excluirUsuario(UsuarioMODEL obj) {
+        try {
+            //criar o comando SQL
+            String sql = "delete from usuario where CPF = ?"; // ?
+            
+            //conectar BD e organizar comando SQL
+            PreparedStatement pstm = conex.prepareStatement(sql);
+            
+            //receber valores do Model (id da ?, valor)
+            pstm.setString(1, obj.getCpf());
+            
+            pstm.execute(); //executar comando
+            pstm.close();   //encerrar conexao
+            
+            JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário. \nUsuarioDAO: " + erro.getMessage());
+        }
+    }
 
-}}
+}

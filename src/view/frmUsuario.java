@@ -15,6 +15,9 @@ import model.UsuarioMODEL;
  */
 public class frmUsuario extends javax.swing.JFrame {
     
+    //Antigo CPF para editar
+    private String antigoCpf = "";
+    
     //Metodo listar tabela
     public void listar() {
         UsuarioDAO dao = new UsuarioDAO();
@@ -163,6 +166,11 @@ public class frmUsuario extends javax.swing.JFrame {
                 "CPF", "Nome", "Tipo", "E-mail", "Telefone", "Data de nascimento"
             }
         ));
+        tabelaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaUsuariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaUsuarios);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -331,7 +339,7 @@ public class frmUsuario extends javax.swing.JFrame {
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Cadastro", jPanel3);
+        jTabbedPane1.addTab("Dados", jPanel3);
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -405,7 +413,8 @@ public class frmUsuario extends javax.swing.JFrame {
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPesquisarActionPerformed
-
+    
+    //botao salvar
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
             UsuarioMODEL obj = new UsuarioMODEL();
@@ -425,13 +434,42 @@ public class frmUsuario extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
-
+    
+    //botao excluir
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        try {
+            UsuarioMODEL obj = new UsuarioMODEL();
+            
+            obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+            
+            UsuarioDAO dao = new UsuarioDAO();
+            dao.excluirUsuario(obj);
+            
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
-
+    
+    //botao editar
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        try {
+            UsuarioMODEL obj = new UsuarioMODEL();
+            
+            obj.setNome(txtNome.getText());
+            obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+            obj.setEmail(txtEmail.getText());
+            obj.setTipo((String) txtTipo.getSelectedItem());
+            obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
+            obj.setDataNasc(txtDataNasc.getText());
+            
+            obj.setSenha(txtSenha.getText());
+            
+            obj.setAntigoCpf(antigoCpf);
+            
+            UsuarioDAO dao = new UsuarioDAO();
+            dao.editarUsuario(obj);
+            
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
@@ -458,6 +496,20 @@ public class frmUsuario extends javax.swing.JFrame {
         // Carregar Lista
         listar();
     }//GEN-LAST:event_formWindowActivated
+
+    private void tabelaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaUsuariosMouseClicked
+        //Seleciona os dados da tabela e envia para aba de "DADOS"
+        jTabbedPane1.setSelectedIndex(1);
+        
+        antigoCpf = tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 0).toString();
+        
+        txtCpf.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 0).toString());
+        txtNome.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 1).toString());
+        txtTipo.setSelectedItem(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 2).toString());
+        txtEmail.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 3).toString());
+        txtTelefone.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 4).toString());
+        txtDataNasc.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 5).toString());
+    }//GEN-LAST:event_tabelaUsuariosMouseClicked
 
     /**
      * @param args the command line arguments
