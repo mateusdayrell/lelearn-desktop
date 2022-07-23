@@ -65,12 +65,12 @@ public class frmUsuario extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        txtConCpf = new javax.swing.JFormattedTextField();
-        txtConNome = new javax.swing.JTextField();
+        txtPesqNome = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaUsuarios = new javax.swing.JTable();
+        txtPesqCpf = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
@@ -136,15 +136,14 @@ public class frmUsuario extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel14.setText("CPF:");
 
-        try {
-            txtConCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        txtConNome.addActionListener(new java.awt.event.ActionListener() {
+        txtPesqNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtConNomeActionPerformed(evt);
+                txtPesqNomeActionPerformed(evt);
+            }
+        });
+        txtPesqNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPesqNomeKeyPressed(evt);
             }
         });
 
@@ -173,6 +172,17 @@ public class frmUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelaUsuarios);
 
+        txtPesqCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPesqCpfActionPerformed(evt);
+            }
+        });
+        txtPesqCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPesqCpfKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -183,12 +193,12 @@ public class frmUsuario extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtConCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(txtPesqCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtConNome, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnPesquisar)
                         .addGap(0, 302, Short.MAX_VALUE)))
@@ -200,10 +210,10 @@ public class frmUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(txtConCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
-                    .addComponent(txtConNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar))
+                    .addComponent(txtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisar)
+                    .addComponent(txtPesqCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -406,12 +416,42 @@ public class frmUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtConNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConNomeActionPerformed
+    private void txtPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtConNomeActionPerformed
-
+    }//GEN-LAST:event_txtPesqNomeActionPerformed
+    
+    
+    //botao pesquisar
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        // TODO add your handling code here:
+        String cpf = "%" + txtPesqCpf.getText().replaceAll("[^0-9]", "") + "%";
+        String nome = "%" + txtPesqNome.getText() + "%";
+        
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        List<UsuarioMODEL> lista = null; 
+        
+        if("%%".equals(cpf)){
+            lista = dao.buscarPorNome(nome);
+        } else {
+            txtPesqNome.setText("");
+            lista = dao.buscarPorCpf(cpf);
+        }
+        
+        DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
+        
+        dados.setNumRows(0); //limpar dados da tabela
+     
+        //inserir dados da lista na tabela
+        for(UsuarioMODEL u: lista) {
+            dados.addRow(new Object[]{
+                u.getCpf(),
+                u.getNome(),
+                u.getTipo(),
+                u.getEmail(),
+                u.getTelefone(),
+                u.getDataNasc()
+            });
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
     
     //botao salvar
@@ -511,6 +551,63 @@ public class frmUsuario extends javax.swing.JFrame {
         txtDataNasc.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 5).toString());
     }//GEN-LAST:event_tabelaUsuariosMouseClicked
 
+    private void txtPesqCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesqCpfActionPerformed
+
+    private void txtPesqCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCpfKeyPressed
+        String cpf = "%" + txtPesqCpf.getText().replaceAll("[^0-9]", "") + "%";
+                
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        List<UsuarioMODEL> lista = null; 
+        
+        
+        lista = dao.buscarPorCpf(cpf);
+        
+        DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
+        
+        dados.setNumRows(0); //limpar dados da tabela
+     
+        //inserir dados da lista na tabela
+        for(UsuarioMODEL u: lista) {
+            dados.addRow(new Object[]{
+                u.getCpf(),
+                u.getNome(),
+                u.getTipo(),
+                u.getEmail(),
+                u.getTelefone(),
+                u.getDataNasc()
+            });
+        }
+    }//GEN-LAST:event_txtPesqCpfKeyPressed
+
+    private void txtPesqNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqNomeKeyPressed
+        String nome = "%" + txtPesqNome.getText() + "%";
+        
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        List<UsuarioMODEL> lista = null; 
+        
+        lista = dao.buscarPorNome(nome);
+        
+        DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
+        
+        dados.setNumRows(0); //limpar dados da tabela
+     
+        //inserir dados da lista na tabela
+        for(UsuarioMODEL u: lista) {
+            dados.addRow(new Object[]{
+                u.getCpf(),
+                u.getNome(),
+                u.getTipo(),
+                u.getEmail(),
+                u.getTelefone(),
+                u.getDataNasc()
+            });
+        }
+    }//GEN-LAST:event_txtPesqNomeKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -574,13 +671,13 @@ public class frmUsuario extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable tabelaUsuarios;
-    private javax.swing.JFormattedTextField txtConCpf;
-    private javax.swing.JTextField txtConNome;
     private javax.swing.JPasswordField txtConfirmarSenha;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JFormattedTextField txtDataNasc;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtPesqCpf;
+    private javax.swing.JTextField txtPesqNome;
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JFormattedTextField txtTelefone;
     private javax.swing.JComboBox<String> txtTipo;

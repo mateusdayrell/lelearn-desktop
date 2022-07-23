@@ -160,12 +160,12 @@
                           <Component id="jScrollPane1" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtConCpf" min="-2" pref="93" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                              <Component id="txtPesqCpf" min="-2" pref="89" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txtConNome" min="-2" pref="201" max="-2" attributes="0"/>
+                              <Component id="txtPesqNome" min="-2" pref="201" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="btnPesquisar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="302" max="32767" attributes="0"/>
@@ -181,10 +181,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtConCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtConNome" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPesqNome" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPesqCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="210" max="-2" attributes="0"/>
@@ -202,16 +202,10 @@
                 <Property name="text" type="java.lang.String" value="CPF:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="txtConCpf">
-              <Properties>
-                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="###.###.###-##" subtype="-1" type="5"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtConNome">
+            <Component class="javax.swing.JTextField" name="txtPesqNome">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtConNomeActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPesqNomeActionPerformed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPesqNomeKeyPressed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
@@ -293,6 +287,12 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JTextField" name="txtPesqCpf">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPesqCpfActionPerformed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPesqCpfKeyPressed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel3">

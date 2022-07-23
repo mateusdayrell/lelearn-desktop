@@ -128,7 +128,7 @@ public class UsuarioDAO {
             
             JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário. \nUsuarioDAO: " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao editar Usuário. \nUsuarioDAO: " + erro.getMessage());
         }
     }
     
@@ -149,7 +149,79 @@ public class UsuarioDAO {
             
             JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário. \nUsuarioDAO: " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao excluir Usuário. \nUsuarioDAO: " + erro.getMessage());
+        }
+    }
+    
+    //método para buscar usuarios
+    public List<UsuarioMODEL> buscarPorCpf(String valor) {
+        try {
+            //criar lista
+            List<UsuarioMODEL> lista = new ArrayList<>();
+            //criar comando sql
+            String sql = "select * from usuario where CPF like ?";
+
+            //realizar busca no banco de dados
+            PreparedStatement pstm = conex.prepareStatement(sql);
+            pstm.setString(1, valor);
+
+            //armazenar resultado em um obj
+            ResultSet rs = pstm.executeQuery();
+
+            //atribuindo retorno do bd a um obj do tipo Usuario
+            while (rs.next()) {
+                UsuarioMODEL obj = new UsuarioMODEL();
+
+                obj.setCpf(rs.getString("CPF"));
+                obj.setNome(rs.getString("NOME"));
+                obj.setEmail(rs.getString("EMAIL"));
+                obj.setTelefone(rs.getString("TELEFONE"));
+                obj.setTipo(rs.getString("TIPO"));
+                obj.setDataNasc(rs.getString("DATANASC"));
+
+                lista.add(obj);
+            }
+
+            return lista;
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, "Erro ao bucar por cpf. \nUsuarioDAO: " + error.getMessage());
+            return null;
+        }
+    }
+    
+    //método para buscar usuarios
+    public List<UsuarioMODEL> buscarPorNome(String valor) {
+        try{
+            //criar lista
+            List<UsuarioMODEL> lista = new ArrayList<>();
+            //criar comando sql
+            String sql = "select * from usuario where NOME like ?";
+
+            //realizar busca no banco de dados
+            PreparedStatement pstm = conex.prepareStatement(sql);
+            pstm.setString(1, valor);
+            
+            //armazenar resultado em um obj
+            ResultSet rs = pstm.executeQuery();
+
+            //atribuindo retorno do bd a um obj do tipo Usuario
+            while(rs.next()) {
+                UsuarioMODEL obj = new UsuarioMODEL();
+                
+                obj.setCpf(rs.getString("CPF"));
+                obj.setNome(rs.getString("NOME"));
+                obj.setEmail(rs.getString("EMAIL"));
+                obj.setTelefone(rs.getString("TELEFONE"));
+                obj.setTipo(rs.getString("TIPO"));
+                obj.setDataNasc(rs.getString("DATANASC"));
+
+                lista.add(obj);
+            }
+
+            return lista;
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, "Erro ao bucar por cpf. \nUsuarioDAO: " + error.getMessage());
+            return null;
         }
     }
 
