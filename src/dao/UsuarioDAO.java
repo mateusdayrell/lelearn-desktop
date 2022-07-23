@@ -46,7 +46,7 @@ public class UsuarioDAO {
             List<UsuarioMODEL> lista = new ArrayList<>();
 
             //criar comando sql
-            String sql = "select * from usuarios";
+            String sql = "select * from usuario";
 
             //realizar busca no banco de dados
             PreparedStatement pstm = conex.prepareStatement(sql);

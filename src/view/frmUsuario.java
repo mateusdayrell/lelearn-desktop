@@ -5,6 +5,8 @@
 package view;
 
 import dao.UsuarioDAO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import model.UsuarioMODEL;
 
 /**
@@ -12,6 +14,28 @@ import model.UsuarioMODEL;
  * @author mateu
  */
 public class frmUsuario extends javax.swing.JFrame {
+    
+    //Metodo listar tabela
+    public void listar() {
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        List<UsuarioMODEL> lista = dao.listarUsuarios();
+        DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
+        
+        dados.setNumRows(0); //limpar dados da tabela
+        
+        //inserir dados da lista na tabela
+        for(UsuarioMODEL u: lista) {
+            dados.addRow(new Object[]{
+                u.getCpf(),
+                u.getNome(),
+                u.getTipo(),
+                u.getEmail(),
+                u.getTelefone(),
+                u.getDataNasc()
+            });
+        }        
+    }
 
     /**
      * Creates new form fmrUsuario
@@ -43,7 +67,7 @@ public class frmUsuario extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaUsuarios = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
@@ -73,6 +97,11 @@ public class frmUsuario extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(94, 23, 235));
 
@@ -125,16 +154,16 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaUsuarios.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        tabelaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "CPF", "Nome", "E-mail", "Data de nascimento"
+                "CPF", "Nome", "Tipo", "E-mail", "Telefone", "Data de nascimento"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaUsuarios);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -425,6 +454,11 @@ public class frmUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // Carregar Lista
+        listar();
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -487,7 +521,7 @@ public class frmUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabelaUsuarios;
     private javax.swing.JFormattedTextField txtConCpf;
     private javax.swing.JTextField txtConNome;
     private javax.swing.JPasswordField txtConfirmarSenha;
