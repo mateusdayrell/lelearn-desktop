@@ -22,7 +22,7 @@ public class UsuarioDAO {
     
     // método para autenticacao de Usuários
     public ResultSet autenticarUsuario(UsuarioDTO objUsuario) {
-        conex = new Conexao().conectaBD(); //REMOVER
+        // conex = new Conexao().conectaBD(); //REMOVER
         
         try {
             String sql = "select * from usuarios where email = ? and senha = ? ";
@@ -58,12 +58,12 @@ public class UsuarioDAO {
             while(rs.next()) {
                 UsuarioMODEL obj = new UsuarioMODEL();
                 
-                obj.setCpf(rs.getString('CPF'));
-                obj.setNome(rs.getString('NOME'));
-                obj.setEmail(rs.getString('EMAIL'));
-                obj.setTelefone(rs.getString('TELEFONE'));
-                obj.setTipo(rs.getString('TIPO'));
-                obj.setDataNasc(rs.getString('DATANASC'));
+                obj.setCpf(rs.getString("CPF"));
+                obj.setNome(rs.getString("NOME"));
+                obj.setEmail(rs.getString("EMAIL"));
+                obj.setTelefone(rs.getString("TELEFONE"));
+                obj.setTipo(rs.getString("TIPO"));
+                obj.setDataNasc(rs.getString("DATANASC"));
 
                 lista.add(obj);
             }
@@ -78,8 +78,8 @@ public class UsuarioDAO {
     public void cadastrarUsuario(UsuarioMODEL obj) {
         try {
             //criar o comando SQL
-            String sql = "insert into usuario (CPF, NOME, TELEFONE, EMAIL, SENHA, TIPO, DATANASC)"
-                        + "values (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into usuario (CPF, NOME, TELEFONE, EMAIL, SENHA, TIPO)" // DATANASC
+                        + "values (?, ?, ?, ?, ?, ?)"; // ?
             
             //conectar BD e organizar comando SQL
             PreparedStatement pstm = conex.prepareStatement(sql);
@@ -87,11 +87,11 @@ public class UsuarioDAO {
             //receber valores do Model (id da ?, valor)
             pstm.setString(1, obj.getCpf());
             pstm.setString(2, obj.getNome());
-            pstm.setString(4, obj.getTelefone());
+            pstm.setString(3, obj.getTelefone());
             pstm.setString(4, obj.getEmail());
             pstm.setString(5, obj.getSenha());
             pstm.setString(6, obj.getTipo());
-            pstm.setString(7, obj.getDataNasc());
+            //pstm.setString(7, obj.getDataNasc());
             
             pstm.execute(); //executar comando
             pstm.close();   //encerrar conexao

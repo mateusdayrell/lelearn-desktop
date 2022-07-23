@@ -4,6 +4,9 @@
  */
 package view;
 
+import dao.UsuarioDAO;
+import model.UsuarioMODEL;
+
 /**
  *
  * @author mateu
@@ -229,7 +232,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jLabel7.setText("Tipo:");
 
-        txtTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um tipo", "Usuário comum", "Administrador" }));
+        txtTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um tipo", "user", "admin" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -375,7 +378,23 @@ public class frmUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+        try {
+            UsuarioMODEL obj = new UsuarioMODEL();
+            
+            obj.setNome(txtNome.getText());
+            obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+            obj.setEmail(txtEmail.getText());
+            obj.setTipo((String) txtTipo.getSelectedItem());
+            obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
+            obj.setDataNasc(txtDataNasc.getText());
+            
+            obj.setSenha(txtSenha.getText());
+            
+            UsuarioDAO dao = new UsuarioDAO();
+            dao.cadastrarUsuario(obj);
+            
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
