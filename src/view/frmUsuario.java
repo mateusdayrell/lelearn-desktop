@@ -6,6 +6,7 @@ package view;
 
 import dao.UsuarioDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.UsuarioMODEL;
 
@@ -38,6 +39,11 @@ public class frmUsuario extends javax.swing.JFrame {
                 u.getDataNasc()
             });
         }        
+    }
+    
+    //verifica se os campos de senha são iguais
+    public boolean verificarSenha() {
+        return txtSenha.getPassword() == txtConfirmarSenha.getPassword();
     }
 
     /**
@@ -457,19 +463,25 @@ public class frmUsuario extends javax.swing.JFrame {
     //botao salvar
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            UsuarioMODEL obj = new UsuarioMODEL();
-            
-            obj.setNome(txtNome.getText());
-            obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
-            obj.setEmail(txtEmail.getText());
-            obj.setTipo((String) txtTipo.getSelectedItem());
-            obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
-            obj.setDataNasc(txtDataNasc.getText());
-            
-            obj.setSenha(txtSenha.getText());
-            
-            UsuarioDAO dao = new UsuarioDAO();
-            dao.cadastrarUsuario(obj);
+            if(verificarSenha()){
+                UsuarioMODEL obj = new UsuarioMODEL();
+                
+                obj.setNome(txtNome.getText());
+                obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+                obj.setEmail(txtEmail.getText());
+                obj.setTipo((String) txtTipo.getSelectedItem());
+                obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
+                obj.setDataNasc(txtDataNasc.getText());
+
+                obj.setSenha(txtSenha.getText());
+
+                UsuarioDAO dao = new UsuarioDAO();
+                dao.cadastrarUsuario(obj);
+            }
+            else {
+                //mensagem de erro
+                JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+            }
             
         } catch (Exception e) {
         }
@@ -492,21 +504,28 @@ public class frmUsuario extends javax.swing.JFrame {
     //botao editar
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
-            UsuarioMODEL obj = new UsuarioMODEL();
+            if(verificarSenha()){
+                UsuarioMODEL obj = new UsuarioMODEL();
             
-            obj.setNome(txtNome.getText());
-            obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
-            obj.setEmail(txtEmail.getText());
-            obj.setTipo((String) txtTipo.getSelectedItem());
-            obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
-            obj.setDataNasc(txtDataNasc.getText());
+                obj.setNome(txtNome.getText());
+                obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+                obj.setEmail(txtEmail.getText());
+                obj.setTipo((String) txtTipo.getSelectedItem());
+                obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
+                obj.setDataNasc(txtDataNasc.getText());
+
+                obj.setSenha(txtSenha.getText());
+
+                obj.setAntigoCpf(antigoCpf);
+
+                UsuarioDAO dao = new UsuarioDAO();
+                dao.editarUsuario(obj);
+            }
+            else {
+                //mensagem de erro
+                JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+            }
             
-            obj.setSenha(txtSenha.getText());
-            
-            obj.setAntigoCpf(antigoCpf);
-            
-            UsuarioDAO dao = new UsuarioDAO();
-            dao.editarUsuario(obj);
             
         } catch (Exception e) {
         }
