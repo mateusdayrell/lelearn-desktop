@@ -62,7 +62,7 @@ public class UsuarioDAO {
                 obj.setEmail(rs.getString("EMAIL"));
                 obj.setTelefone(rs.getString("TELEFONE"));
                 obj.setTipo(rs.getString("TIPO"));
-                obj.setDataNasc(rs.getString("DATANASC"));
+                obj.setDataNasc(dateToString(rs.getString("DATANASC")));
 
                 lista.add(obj);
             }
@@ -78,8 +78,8 @@ public class UsuarioDAO {
     public void cadastrarUsuario(UsuarioMODEL obj) {
         try {
             //criar o comando SQL
-            String sql = "insert into usuario (CPF, NOME, TELEFONE, EMAIL, SENHA, TIPO)" // DATANASC
-                        + "values (?, ?, ?, ?, ?, ?)"; // ?
+            String sql = "insert into usuario (CPF, NOME, TELEFONE, EMAIL, SENHA, TIPO, DATANASC)" // DATANASC
+                        + "values (?, ?, ?, ?, ?, ?, ?)"; // ?
             
             //conectar BD e organizar comando SQL
             PreparedStatement pstm = conex.prepareStatement(sql);
@@ -91,7 +91,7 @@ public class UsuarioDAO {
             pstm.setString(4, obj.getEmail());
             pstm.setString(5, obj.getSenha());
             pstm.setString(6, obj.getTipo());
-            //pstm.setString(7, obj.getDataNasc());
+            pstm.setString(7, obj.getDataNasc());
             
             pstm.execute(); //executar comando
             pstm.close();   //encerrar conexao
@@ -106,22 +106,22 @@ public class UsuarioDAO {
     public void editarUsuario(UsuarioMODEL obj) {
         try {
             //criar o comando SQL
-            String sql = "update usuario set CPF=?, NOME=?, TELEFONE=?, EMAIL=?, SENHA=?, TIPO=?" // , DATANASC=?
+            String sql = "update usuario set NOME=?, TELEFONE=?, EMAIL=?, SENHA=?, TIPO=?, DATANASC=?" // , DATANASC=?
                        + "where CPF=?";
             
             //conectar BD e organizar comando SQL
             PreparedStatement pstm = conex.prepareStatement(sql);
             
             //receber valores do Model (id da ?, valor)
-            pstm.setString(1, obj.getCpf());
-            pstm.setString(2, obj.getNome());
-            pstm.setString(3, obj.getTelefone());
-            pstm.setString(4, obj.getEmail());
-            pstm.setString(5, obj.getSenha());
-            pstm.setString(6, obj.getTipo());
-            //pstm.setString(7, obj.getDataNasc());
+            //pstm.setString(1, obj.getCpf());
+            pstm.setString(1, obj.getNome());
+            pstm.setString(2, obj.getTelefone());
+            pstm.setString(3, obj.getEmail());
+            pstm.setString(4, obj.getSenha());
+            pstm.setString(5, obj.getTipo());
+            pstm.setString(6, obj.getDataNasc());
             
-            pstm.setString(7, obj.getAntigoCpf());
+            pstm.setString(7, obj.getCpf());
             
             pstm.execute(); //executar comando
             pstm.close();   //encerrar conexao
@@ -223,6 +223,18 @@ public class UsuarioDAO {
             JOptionPane.showMessageDialog(null, "Erro ao bucar por cpf. \nUsuarioDAO: " + error.getMessage());
             return null;
         }
+    }
+    
+    public String dateToString(String data){
+        if(data == null) {
+            return null;
+        }
+        String ano = data.substring(0,4);
+        String mes = data.substring(5,7);
+        String dia = data.substring(8);
+
+        String dataBr = dia+"/"+mes+"/"+ano;
+        return dataBr;
     }
 
 }
