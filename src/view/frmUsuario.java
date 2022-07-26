@@ -36,7 +36,7 @@ public class frmUsuario extends javax.swing.JFrame {
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                u.getDataNasc()
+                dateToString(u.getDataNasc())
             });
         }        
     }
@@ -66,13 +66,28 @@ public class frmUsuario extends javax.swing.JFrame {
     
     public String formataData(String dataNasc) {
         String data = dataNasc;
-            
+        System.out.println("data " + data);
+        if(data == ""){
+            return null;
+        }
         String dia = data.substring(0,2);
         String mes = data.substring(3,5);
         String ano = data.substring(6);
         
         String dataMysql = ano+"-"+mes+"-"+dia;
         return dataMysql;
+    }
+    
+    public String dateToString(String data){
+        if(data == null) {
+            return null;
+        }
+        String ano = data.substring(0,4);
+        String mes = data.substring(5,7);
+        String dia = data.substring(8);
+
+        String dataBr = dia+"/"+mes+"/"+ano;
+        return dataBr;
     }
     
     public void limparAbaDados(){
@@ -216,6 +231,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jLabel15.setText("Nome:");
 
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/transparency (1).png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,7 +284,7 @@ public class frmUsuario extends javax.swing.JFrame {
                         .addComponent(txtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnPesquisar)
-                        .addGap(0, 302, Short.MAX_VALUE)))
+                        .addGap(0, 282, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -278,10 +294,10 @@ public class frmUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jLabel15)
+                    .addComponent(txtPesqCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar)
-                    .addComponent(txtPesqCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(btnPesquisar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -346,7 +362,12 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jLabel7.setText("Tipo:");
 
-        txtTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um tipo", "user", "admin" }));
+        txtTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um tipo", "comum", "admin" }));
+        txtTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTipoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -418,6 +439,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Dados", jPanel3);
 
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
         btnSalvar.setText("Cadastrar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -425,6 +447,7 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/trash.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -432,6 +455,7 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pencil.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -439,6 +463,7 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sweeping.png"))); // NOI18N
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -455,14 +480,14 @@ public class frmUsuario extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(155, 155, 155)
+                .addComponent(btnSalvar)
                 .addGap(18, 18, 18)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -517,7 +542,7 @@ public class frmUsuario extends javax.swing.JFrame {
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                u.getDataNasc()
+                dateToString(u.getDataNasc())
             });
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
@@ -533,12 +558,13 @@ public class frmUsuario extends javax.swing.JFrame {
                 obj.setEmail(txtEmail.getText());
                 obj.setTipo((String) txtTipo.getSelectedItem());
                 obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
-                obj.setDataNasc(formataData(txtDataNasc.getText()));
+                obj.setDataNasc(formataData(txtDataNasc.getText().replaceAll("[^0-9]", "")));
 
                 obj.setSenha(txtSenha.getText());
 
                 UsuarioDAO dao = new UsuarioDAO();
                 dao.cadastrarUsuario(obj);
+                limparAbaDados();
             }
             else {
                 //mensagem de erro
@@ -598,6 +624,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
                     UsuarioDAO dao = new UsuarioDAO();
                     dao.editarUsuario(obj);
+                    limparAbaDados();
                 }
                 
             }
@@ -677,7 +704,7 @@ public class frmUsuario extends javax.swing.JFrame {
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                u.getDataNasc()
+                dateToString(u.getDataNasc())
             });
         }
     }//GEN-LAST:event_txtPesqCpfKeyPressed
@@ -703,7 +730,7 @@ public class frmUsuario extends javax.swing.JFrame {
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                u.getDataNasc()
+                dateToString(u.getDataNasc())
             });
         }
     }//GEN-LAST:event_txtPesqNomeKeyPressed
@@ -719,6 +746,10 @@ public class frmUsuario extends javax.swing.JFrame {
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTipoActionPerformed
 
     /**
      * @param args the command line arguments

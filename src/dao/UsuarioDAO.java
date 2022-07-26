@@ -80,7 +80,7 @@ public class UsuarioDAO {
                 obj.setEmail(rs.getString("EMAIL"));
                 obj.setTelefone(rs.getString("TELEFONE"));
                 obj.setTipo(rs.getString("TIPO"));
-                obj.setDataNasc(dateToString(rs.getString("DATANASC")));
+                obj.setDataNasc(rs.getString("DATANASC"));
 
                 lista.add(obj);
             }
@@ -241,18 +241,6 @@ public class UsuarioDAO {
             JOptionPane.showMessageDialog(null, "Erro ao bucar por cpf. \nUsuarioDAO: " + error.getMessage());
             return null;
         }
-    }
-    
-    public String dateToString(String data){
-        if(data == null) {
-            return null;
-        }
-        String ano = data.substring(0,4);
-        String mes = data.substring(5,7);
-        String dia = data.substring(8);
-
-        String dataBr = dia+"/"+mes+"/"+ano;
-        return dataBr;
     }
 
 }
