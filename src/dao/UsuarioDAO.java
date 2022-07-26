@@ -11,6 +11,7 @@ import jdbc.ConnectionFactory;
 import model.UsuarioMODEL;
 import java.util.List;
 import java.util.ArrayList;
+import view.TelaHome;
 
 public class UsuarioDAO {
     private Connection conex;
@@ -21,20 +22,37 @@ public class UsuarioDAO {
     }
     
     // método para autenticacao de Usuários
-    public ResultSet autenticarUsuario(UsuarioDTO objUsuario) {
+    public void autenticarUsuario(String cpf, String senha) {
         // conex = new Conexao().conectaBD(); //REMOVER
         
         try {
-            String sql = "select * from usuarios where email = ? and senha = ? ";
+            String sql = "select * from usuario where cpf = ? and senha = ? ";
             PreparedStatement pstm = conex.prepareStatement(sql);
-            pstm.setString(1, objUsuario.getEmail());
-            pstm.setString(2, objUsuario.getSenha());
+            
+            pstm.setString(1, cpf);
+            pstm.setString(2,senha);
             
             ResultSet rs = pstm.executeQuery();
-            return rs;
+            
+            if(rs.next()) { //usuario logou
+                //chamar tela
+                JOptionPane.showMessageDialog(null, "Bem-vindo");
+                TelaHome tela = new TelaHome();
+                tela.nomeLogado = rs.getString("NOME");
+                tela.tipoLogado = rs.getString("TIPO");
+                
+                if(rs.getString("TIPO").equals("user")) { //caso usuario comum
+                    tela.menuUsuarios.setEnabled(false);
+                    tela.itemMenuControleVideos.setEnabled(false);
+                }  
+                
+                tela.setVisible(true);
+            } else {
+                //mensagem de erro
+                JOptionPane.showMessageDialog(null, "CPF ou senha inválidos");
+            }            
         } catch (SQLException error) {
             JOptionPane.showMessageDialog(null, "UsuarioDAO: " + error.getMessage());
-            return null;
         }
     }
     

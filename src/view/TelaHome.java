@@ -4,11 +4,18 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mateu
  */
 public class TelaHome extends javax.swing.JFrame {
+    
+    public String nomeLogado;
+    public String tipoLogado;
+    
+    public frmUsuario telaUsuario = new frmUsuario();
 
     /**
      * Creates new form TelaHome
@@ -26,17 +33,33 @@ public class TelaHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDesktopPane2 = new javax.swing.JDesktopPane();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        menuUsuarios = new javax.swing.JMenu();
+        itemMenuControleUsuarios = new javax.swing.JMenuItem();
+        menuVideos = new javax.swing.JMenu();
+        itemMenuControleVideos = new javax.swing.JMenuItem();
+        menuSistema = new javax.swing.JMenu();
+        itemMenuSair = new javax.swing.JMenuItem();
+
+        javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
+        jDesktopPane2.setLayout(jDesktopPane2Layout);
+        jDesktopPane2Layout.setHorizontalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jDesktopPane2Layout.setVerticalGroup(
+            jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -49,38 +72,47 @@ public class TelaHome extends javax.swing.JFrame {
             .addGap(0, 280, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Arquivo");
+        menuUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/a16user (3).png"))); // NOI18N
+        menuUsuarios.setText("Usuarios");
 
-        jMenuItem1.setText("Sair");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        itemMenuControleUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/userb-16.png"))); // NOI18N
+        itemMenuControleUsuarios.setText("Controle de usuários");
+        itemMenuControleUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                itemMenuControleUsuariosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        menuUsuarios.add(itemMenuControleUsuarios);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuUsuarios);
 
-        jMenu2.setText("Usuarios");
+        menuVideos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/a16play (1).png"))); // NOI18N
+        menuVideos.setText("Vídeos");
 
-        jMenuItem2.setText("Cadastrar");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        itemMenuControleVideos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videob-16.png"))); // NOI18N
+        itemMenuControleVideos.setText("Controle de vídeos");
+        itemMenuControleVideos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                itemMenuControleVideosActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem2);
+        menuVideos.add(itemMenuControleVideos);
 
-        jMenuItem3.setText("Listar");
-        jMenu2.add(jMenuItem3);
+        jMenuBar1.add(menuVideos);
 
-        jMenuItem4.setText("Editar");
-        jMenu2.add(jMenuItem4);
+        menuSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gear16.png"))); // NOI18N
+        menuSistema.setText("Sistema");
 
-        jMenuBar1.add(jMenu2);
+        itemMenuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout2-16.png"))); // NOI18N
+        itemMenuSair.setText("Sair");
+        itemMenuSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuSairActionPerformed(evt);
+            }
+        });
+        menuSistema.add(itemMenuSair);
 
-        jMenu3.setText("Vídeos");
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menuSistema);
 
         setJMenuBar(jMenuBar1);
 
@@ -92,23 +124,47 @@ public class TelaHome extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void itemMenuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuSairActionPerformed
+        // Logout
+        Object[] options = { "Sim", "Não" };
+        
+        int p = JOptionPane.showOptionDialog(null, "Deseja realmente sair do sistema?", "Sair",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, 
+                options, options[0]);
+                
+        if(p == JOptionPane.YES_OPTION){
+            frmNovoLogin login = new frmNovoLogin();
+            nomeLogado = "";
+            tipoLogado = "";
+            //telaVideo.dispose();
+            telaUsuario.dispose();
+            this.dispose();
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_itemMenuSairActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void itemMenuControleVideosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuControleVideosActionPerformed
         // TODO add your handling code here:
-        TelaCadastroUsuario telaCadastro = new TelaCadastroUsuario();
-        jDesktopPane1.add(telaCadastro);
-        telaCadastro.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_itemMenuControleVideosActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        this.setExtendedState(this.MAXIMIZED_BOTH);
+        this.setVisible(true);
+    }//GEN-LAST:event_formWindowActivated
+
+    private void itemMenuControleUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuControleUsuariosActionPerformed
+        //Item controle usuarios
+        //telaVideos.dispose();as
+        telaUsuario.setVisible(true);
+    }//GEN-LAST:event_itemMenuControleUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,7 +177,7 @@ public class TelaHome extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -147,14 +203,14 @@ public class TelaHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JMenuItem itemMenuControleUsuarios;
+    public javax.swing.JMenuItem itemMenuControleVideos;
+    private javax.swing.JMenuItem itemMenuSair;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
+    private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    public javax.swing.JMenu menuSistema;
+    public javax.swing.JMenu menuUsuarios;
+    public javax.swing.JMenu menuVideos;
     // End of variables declaration//GEN-END:variables
 }
