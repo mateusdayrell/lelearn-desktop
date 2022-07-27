@@ -41,7 +41,7 @@ public class frmNovoLogin extends javax.swing.JFrame {
         txtSenha = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
         txtCpf = new javax.swing.JFormattedTextField();
-        ImageIcon icon = new ImageIcon(getClass().getResource("/images/lelearn-transparent.png"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("/images/lelearn2-transparent.png"));
         Image image = icon.getImage();
         jDesktopPane1 = new javax.swing.JDesktopPane(){
             public void paintComponent(Graphics g){

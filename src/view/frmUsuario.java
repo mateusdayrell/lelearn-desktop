@@ -191,7 +191,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 38)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boss.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boss-64.png"))); // NOI18N
         jLabel1.setText("Usuários");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -254,7 +254,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jLabel15.setText("Nome:");
 
-        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/transparency (1).png"))); // NOI18N
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar-16.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -473,7 +473,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Dados", jPanel3);
 
-        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus.png"))); // NOI18N
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cadastrar-24.png"))); // NOI18N
         btnSalvar.setText("Cadastrar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -481,7 +481,7 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/trash.png"))); // NOI18N
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/apagar-24.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -489,7 +489,7 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
 
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pencil.png"))); // NOI18N
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar-24.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -497,7 +497,7 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
 
-        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sweeping.png"))); // NOI18N
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/limpar-24.png"))); // NOI18N
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -77,11 +77,11 @@ public class TelaHome extends javax.swing.JFrame {
             .addGap(0, 275, Short.MAX_VALUE)
         );
 
-        menuUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/a16user (3).png"))); // NOI18N
+        menuUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user1-16.png"))); // NOI18N
         menuUsuarios.setText("Usuários");
         menuUsuarios.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
-        itemMenuControleUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/userb-16.png"))); // NOI18N
+        itemMenuControleUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user2-16.png"))); // NOI18N
         itemMenuControleUsuarios.setText("Controle de usuários");
         itemMenuControleUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,11 +92,11 @@ public class TelaHome extends javax.swing.JFrame {
 
         jMenuBar1.add(menuUsuarios);
 
-        menuVideos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/a16play (1).png"))); // NOI18N
+        menuVideos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/play-16.png"))); // NOI18N
         menuVideos.setText("Vídeos");
         menuVideos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
-        itemMenuControleVideos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videob-16.png"))); // NOI18N
+        itemMenuControleVideos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/video2-16.png"))); // NOI18N
         itemMenuControleVideos.setText("Controle de vídeos");
         itemMenuControleVideos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,11 +107,11 @@ public class TelaHome extends javax.swing.JFrame {
 
         jMenuBar1.add(menuVideos);
 
-        menuSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gear16.png"))); // NOI18N
+        menuSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/system-16.png"))); // NOI18N
         menuSistema.setText("Sistema");
         menuSistema.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
-        itemMenuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoutb-16.png"))); // NOI18N
+        itemMenuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout-16.png"))); // NOI18N
         itemMenuSair.setText("Sair");
         itemMenuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
