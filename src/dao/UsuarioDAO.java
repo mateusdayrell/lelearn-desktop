@@ -79,6 +79,7 @@ public class UsuarioDAO {
                 obj.setNome(rs.getString("NOME"));
                 obj.setEmail(rs.getString("EMAIL"));
                 obj.setTelefone(rs.getString("TELEFONE"));
+                obj.setSenha(rs.getString("SENHA"));
                 obj.setTipo(rs.getString("TIPO"));
                 obj.setDataNasc(rs.getString("DATANASC"));
 

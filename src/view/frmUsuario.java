@@ -36,7 +36,8 @@ public class frmUsuario extends javax.swing.JFrame {
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                dateToString(u.getDataNasc())
+                dateToString(u.getDataNasc()),
+                u.getSenha()
             });
         }        
     }
@@ -105,6 +106,18 @@ public class frmUsuario extends javax.swing.JFrame {
         txtPesqCpf.setText("");
         txtPesqNome.setText("");
         btnPesquisar.doClick();
+    }
+    
+    public boolean verificarCampos(){
+        if(txtEmail.getText().equals("") || txtSenha.getText().equals("") ||
+           txtCpf.getText().replaceAll("[^0-9]", "").equals("") ||
+           ((String) txtTipo.getSelectedItem()).equals("Selecione um tipo") ||        
+           txtConfirmarSenha.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Campo obgratório não preenchido detectado! \nPara prosseguir com o cadadatro, preencha os seguintes campos:"
+                                                                    + "\nNome, CPF, Email, Tipo, Senha e Confirmar senha."); 
+                return false;
+        }
+        return true;
     }
 
     /**
@@ -256,7 +269,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CPF", "Nome", "Tipo", "E-mail", "Telefone", "Data de nascimento"
+                "CPF", "Nome", "Tipo", "E-mail", "Telefone", "Data de nascimento", "Senha"
             }
         ));
         tabelaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -265,6 +278,11 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tabelaUsuarios);
+        if (tabelaUsuarios.getColumnModel().getColumnCount() > 0) {
+            tabelaUsuarios.getColumnModel().getColumn(6).setMinWidth(0);
+            tabelaUsuarios.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tabelaUsuarios.getColumnModel().getColumn(6).setMaxWidth(0);
+        }
 
         txtPesqCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -562,27 +580,34 @@ public class frmUsuario extends javax.swing.JFrame {
     //botao salvar
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            if(verificarSenha()){
-                UsuarioMODEL obj = new UsuarioMODEL();
-                
-                obj.setNome(txtNome.getText());
-                obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
-                obj.setEmail(txtEmail.getText());
-                obj.setTipo((String) txtTipo.getSelectedItem());
-                obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
-                obj.setDataNasc(formataData(txtDataNasc.getText().replaceAll("[^0-9]", "")));
-
-                obj.setSenha(txtSenha.getText());
-
-                UsuarioDAO dao = new UsuarioDAO();
-                dao.cadastrarUsuario(obj);
-                limparAbaDados();
-            }
-            else {
-                //mensagem de erro
-                JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
-            }
+            Integer tela = jTabbedPane1.getSelectedIndex();
             
+            if(tela.equals(1)){
+                if(verificarCampos()){
+                    if(verificarSenha()){
+                        UsuarioMODEL obj = new UsuarioMODEL();
+
+                        obj.setNome(txtNome.getText());
+                        obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+                        obj.setEmail(txtEmail.getText());
+                        obj.setTipo((String) txtTipo.getSelectedItem());
+                        obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
+                        obj.setDataNasc(formataData(txtDataNasc.getText().replaceAll("[^0-9]", "")));
+
+                        obj.setSenha(txtSenha.getText());
+
+                        UsuarioDAO dao = new UsuarioDAO();
+                        dao.cadastrarUsuario(obj);
+                        limparAbaDados();
+                    }
+                    else {
+                        //mensagem de erro
+                        JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+                    }
+                }
+            } else {
+                jTabbedPane1.setSelectedIndex(1);
+            }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -590,27 +615,32 @@ public class frmUsuario extends javax.swing.JFrame {
     //botao excluir
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
-            //Verifica se possui algum usuario selecionado
-            if ("".equals(txtCpf.getText().replaceAll("[^0-9]", ""))) {
-                JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
-            } else {
-                Object[] options = { "Sim", "Não" };
-                int p = JOptionPane.showOptionDialog(null, "Deseja realmente excluir o usuário de CPF: " + txtCpf.getText() + "?\nCaso prossiga com a exclusão, o mesmo não será mais recuperado.", "Atenção",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, 
-                        options, options[0]);
-                
-                if(p == JOptionPane.YES_OPTION){
-                    UsuarioMODEL obj = new UsuarioMODEL();
-
-                    obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
-
-                    UsuarioDAO dao = new UsuarioDAO();
-                    dao.excluirUsuario(obj);
-
-                    limparAbaDados(); 
-                }
+            Integer tela = jTabbedPane1.getSelectedIndex();
             
-                
+            if(tela.equals(1)){
+                //Verifica se possui algum usuario selecionado
+                if ("".equals(txtCpf.getText().replaceAll("[^0-9]", ""))) {
+                    JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
+                } 
+                else {
+                    Object[] options = { "Sim", "Não" };
+                    int p = JOptionPane.showOptionDialog(null, "Deseja realmente excluir o usuário de CPF: " + txtCpf.getText() + "?\nCaso prossiga com a exclusão, o mesmo não será mais recuperado.", "Atenção",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, 
+                            options, options[0]);
+
+                    if(p == JOptionPane.YES_OPTION){
+                        UsuarioMODEL obj = new UsuarioMODEL();
+
+                        obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+
+                        UsuarioDAO dao = new UsuarioDAO();
+                        dao.excluirUsuario(obj);
+
+                        limparAbaDados(); 
+                    }
+                }
+            } else {
+                jTabbedPane1.setSelectedIndex(1);
             }
         } catch (Exception e) {
         }
@@ -619,30 +649,35 @@ public class frmUsuario extends javax.swing.JFrame {
     //botao editar
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
-            if(verificarSenha()){
-                if(verificarCpf()) {
-                    UsuarioMODEL obj = new UsuarioMODEL();
+            Integer tela = jTabbedPane1.getSelectedIndex();
             
-                    obj.setNome(txtNome.getText());
-                    obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
-                    obj.setEmail(txtEmail.getText());
-                    obj.setTipo((String) txtTipo.getSelectedItem());
-                    obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
-                    obj.setDataNasc(formataData(txtDataNasc.getText()));
+            if(tela.equals(1)){
+                if(verificarSenha()){
+                    if(verificarCpf()) {
+                        UsuarioMODEL obj = new UsuarioMODEL();
 
-                    obj.setSenha(txtSenha.getText().equals("") ? null : txtSenha.getText());
+                        obj.setNome(txtNome.getText());
+                        obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+                        obj.setEmail(txtEmail.getText());
+                        obj.setTipo((String) txtTipo.getSelectedItem());
+                        obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
+                        obj.setDataNasc(formataData(txtDataNasc.getText()));
 
-                    //obj.setAntigoCpf(antigoCpf);
+                        obj.setSenha(txtSenha.getText().equals("") ? null : txtSenha.getText());
 
-                    UsuarioDAO dao = new UsuarioDAO();
-                    dao.editarUsuario(obj);
-                    //limparAbaDados();
+                        //obj.setAntigoCpf(antigoCpf);
+
+                        UsuarioDAO dao = new UsuarioDAO();
+                        dao.editarUsuario(obj);
+                        //limparAbaDados();
+                    }
                 }
-                
-            }
-            else {
-                //mensagem de erro
-                JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+                else {
+                    //mensagem de erro
+                    JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+                }
+            } else {
+                jTabbedPane1.setSelectedIndex(1);
             }
             
             
@@ -688,6 +723,8 @@ public class frmUsuario extends javax.swing.JFrame {
         txtEmail.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 3).toString());
         txtTelefone.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 4).toString());
         txtDataNasc.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 5).toString());
+        txtSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
+        txtConfirmarSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
     }//GEN-LAST:event_tabelaUsuariosMouseClicked
 
     private void txtPesqCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCpfActionPerformed
