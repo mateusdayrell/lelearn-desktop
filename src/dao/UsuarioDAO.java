@@ -41,7 +41,7 @@ public class UsuarioDAO {
                 tela.nomeLogado = rs.getString("NOME");
                 tela.tipoLogado = rs.getString("TIPO");
                 
-                if(rs.getString("TIPO").equals("user")) { //caso usuario comum
+                if(rs.getString("TIPO").equals("comum")) { //caso usuario comum
                     tela.menuUsuarios.setEnabled(false);
                     tela.itemMenuControleVideos.setEnabled(false);
                 }  

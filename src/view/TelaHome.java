@@ -4,6 +4,9 @@
  */
 package view;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,6 +63,8 @@ public class TelaHome extends javax.swing.JFrame {
                 formWindowActivated(evt);
             }
         });
+
+        jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
