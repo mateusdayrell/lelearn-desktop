@@ -13,17 +13,17 @@ import javax.swing.JOptionPane;
  *
  * @author mateu
  */
-public class TelaHome extends javax.swing.JFrame {
+public class FrmHome extends javax.swing.JFrame {
     
     public String nomeLogado;
     public String tipoLogado;
     
-    public frmUsuario telaUsuario = new frmUsuario();
+    public FrmUsuario telaUsuario = new FrmUsuario();
 
     /**
      * Creates new form TelaHome
      */
-    public TelaHome() {
+    public FrmHome() {
         initComponents();
     }
 
@@ -148,7 +148,7 @@ public class TelaHome extends javax.swing.JFrame {
                 options, options[0]);
                 
         if(p == JOptionPane.YES_OPTION){
-            frmNovoLogin login = new frmNovoLogin();
+            FrmLogin login = new FrmLogin();
             nomeLogado = "";
             tipoLogado = "";
             //telaVideo.dispose();
@@ -191,21 +191,23 @@ public class TelaHome extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaHome().setVisible(true);
+                new FrmHome().setVisible(true);
             }
         });
     }

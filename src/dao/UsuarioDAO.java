@@ -10,7 +10,7 @@ import jdbc.ConnectionFactory;
 import model.UsuarioMODEL;
 import java.util.List;
 import java.util.ArrayList;
-import view.TelaHome;
+import view.FrmHome;
 
 public class UsuarioDAO {
     private Connection conex;
@@ -36,7 +36,7 @@ public class UsuarioDAO {
             if(rs.next()) { //usuario logou
                 //chamar tela
                 JOptionPane.showMessageDialog(null, "Bem-vindo");
-                TelaHome tela = new TelaHome();
+                FrmHome tela = new FrmHome();
                 tela.nomeLogado = rs.getString("NOME");
                 tela.tipoLogado = rs.getString("TIPO");
                 
