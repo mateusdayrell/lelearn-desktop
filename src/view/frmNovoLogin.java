@@ -5,7 +5,6 @@
 package view;
 
 import dao.UsuarioDAO;
-import dto.UsuarioDTO;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.sql.ResultSet;

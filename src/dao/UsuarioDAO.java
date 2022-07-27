@@ -2,7 +2,6 @@
 package dao;
 
 import java.sql.PreparedStatement;
-import dto.UsuarioDTO;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;

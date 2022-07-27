@@ -74,11 +74,12 @@ public class TelaHome extends javax.swing.JFrame {
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
+            .addGap(0, 275, Short.MAX_VALUE)
         );
 
         menuUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/a16user (3).png"))); // NOI18N
-        menuUsuarios.setText("Usuarios");
+        menuUsuarios.setText("Usuários");
+        menuUsuarios.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
         itemMenuControleUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/userb-16.png"))); // NOI18N
         itemMenuControleUsuarios.setText("Controle de usuários");
@@ -93,6 +94,7 @@ public class TelaHome extends javax.swing.JFrame {
 
         menuVideos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/a16play (1).png"))); // NOI18N
         menuVideos.setText("Vídeos");
+        menuVideos.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
         itemMenuControleVideos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/videob-16.png"))); // NOI18N
         itemMenuControleVideos.setText("Controle de vídeos");
@@ -107,8 +109,9 @@ public class TelaHome extends javax.swing.JFrame {
 
         menuSistema.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gear16.png"))); // NOI18N
         menuSistema.setText("Sistema");
+        menuSistema.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
 
-        itemMenuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logout2-16.png"))); // NOI18N
+        itemMenuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoutb-16.png"))); // NOI18N
         itemMenuSair.setText("Sair");
         itemMenuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

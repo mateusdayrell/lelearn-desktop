@@ -67,7 +67,6 @@ public class frmUsuario extends javax.swing.JFrame {
     
     public String formataData(String dataNasc) {
         String data = dataNasc;
-        System.out.println("data " + data);
         if(data == ""){
             return null;
         }
@@ -112,8 +111,8 @@ public class frmUsuario extends javax.swing.JFrame {
         if(txtEmail.getText().equals("") || txtSenha.getText().equals("") ||
            txtCpf.getText().replaceAll("[^0-9]", "").equals("") ||
            ((String) txtTipo.getSelectedItem()).equals("Selecione um tipo") ||        
-           txtConfirmarSenha.getText().equals("")){
-                JOptionPane.showMessageDialog(null, "Campo obgratório não preenchido detectado! \nPara prosseguir com o cadadatro, preencha os seguintes campos:"
+           txtConfirmarSenha.getText().equals("") || txtNome.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Campo obgratório não preenchido detectado! \nPara prosseguir, preencha os seguintes campos:"
                                                                     + "\nNome, CPF, Email, Tipo, Senha e Confirmar senha."); 
                 return false;
         }
@@ -335,6 +334,11 @@ public class frmUsuario extends javax.swing.JFrame {
         jTabbedPane1.addTab("Conslta", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPanel3FocusGained(evt);
+            }
+        });
 
         jLabel2.setText("Nome");
 
@@ -652,29 +656,31 @@ public class frmUsuario extends javax.swing.JFrame {
             Integer tela = jTabbedPane1.getSelectedIndex();
             
             if(tela.equals(1)){
-                if(verificarSenha()){
-                    if(verificarCpf()) {
-                        UsuarioMODEL obj = new UsuarioMODEL();
+                if(verificarCampos()){
+                    if(verificarSenha()){
+                        if(verificarCpf()) {
+                            UsuarioMODEL obj = new UsuarioMODEL();
 
-                        obj.setNome(txtNome.getText());
-                        obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
-                        obj.setEmail(txtEmail.getText());
-                        obj.setTipo((String) txtTipo.getSelectedItem());
-                        obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
-                        obj.setDataNasc(formataData(txtDataNasc.getText()));
+                            obj.setNome(txtNome.getText());
+                            obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+                            obj.setEmail(txtEmail.getText());
+                            obj.setTipo((String) txtTipo.getSelectedItem());
+                            obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
+                            obj.setDataNasc(formataData(txtDataNasc.getText()));
 
-                        obj.setSenha(txtSenha.getText().equals("") ? null : txtSenha.getText());
+                            obj.setSenha(txtSenha.getText().equals("") ? null : txtSenha.getText());
 
-                        //obj.setAntigoCpf(antigoCpf);
+                            //obj.setAntigoCpf(antigoCpf);
 
-                        UsuarioDAO dao = new UsuarioDAO();
-                        dao.editarUsuario(obj);
-                        //limparAbaDados();
+                            UsuarioDAO dao = new UsuarioDAO();
+                            dao.editarUsuario(obj);
+                            //limparAbaDados();
+                        }
                     }
-                }
-                else {
-                    //mensagem de erro
-                    JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+                    else {
+                        //mensagem de erro
+                        JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+                    }
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
@@ -807,6 +813,10 @@ public class frmUsuario extends javax.swing.JFrame {
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void jPanel3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel3FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel3FocusGained
 
     /**
      * @param args the command line arguments
