@@ -640,7 +640,7 @@ public class frmUsuario extends javax.swing.JFrame {
                     }
                 }
             } else {
-                jTabbedPane1.setSelectedIndex(1);
+                JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
             }
         } catch (Exception e) {
         }
@@ -677,7 +677,7 @@ public class frmUsuario extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
                 }
             } else {
-                jTabbedPane1.setSelectedIndex(1);
+                JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
             }
             
             
