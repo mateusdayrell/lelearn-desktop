@@ -16,7 +16,7 @@ import model.VideoMODEL;
 public class FrmVideo extends javax.swing.JFrame {
     
     //Antigo CPF para editar
-    private String antigoCpf = "";
+    private String antigoCod = "";
     
     //Metodo listar tabela
     public void listar() {
@@ -470,7 +470,7 @@ public class FrmVideo extends javax.swing.JFrame {
             obj.setLINK(txtLink.getText());
             
             
-            obj.setAntigoCod(antigoCpf);
+            obj.setAntigoCod(antigoCod);
             
             VideoDAO dao = new VideoDAO();
             dao.editarVideo(obj);
@@ -500,7 +500,7 @@ public class FrmVideo extends javax.swing.JFrame {
         //Seleciona os dados da tabela e envia para aba de "DADOS"
         jTabbedPane1.setSelectedIndex(1);
         
-        antigoCpf = tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString();
+        antigoCod = tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString();
         
         txtCodigo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString());
         txtTitulo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
@@ -514,14 +514,14 @@ public class FrmVideo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesqCodActionPerformed
 
     private void txtPesqCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCodKeyPressed
-        String cpf = "%" + txtPesqCod.getText().replaceAll("[^0-9]", "") + "%";
+        String cod = "%" + txtPesqCod.getText().replaceAll("[^0-9]", "") + "%";
                 
         VideoDAO dao = new VideoDAO();
         
         List<VideoMODEL> lista = null; 
         
         
-        lista = dao.buscarPorCod(cpf);
+        lista = dao.buscarPorCod(cod);
         
         DefaultTableModel dados = (DefaultTableModel) tabelaVideos.getModel();
         
