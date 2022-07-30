@@ -42,7 +42,7 @@ public class FrmVideo extends javax.swing.JFrame {
     }
 
     /**
-     * Creates new form fmrUsuario
+     * Creates new form fmrVideo
      */
     public FrmVideo() {
         initComponents();
