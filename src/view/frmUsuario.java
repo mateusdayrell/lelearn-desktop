@@ -71,8 +71,8 @@ public class FrmUsuario extends javax.swing.JFrame {
             return null;
         }
         String dia = data.substring(0,2);
-        String mes = data.substring(3,5);
-        String ano = data.substring(6);
+        String mes = data.substring(2,4);
+        String ano = data.substring(4);
         
         String dataMysql = ano+"-"+mes+"-"+dia;
         return dataMysql;
@@ -666,7 +666,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                             obj.setEmail(txtEmail.getText());
                             obj.setTipo((String) txtTipo.getSelectedItem());
                             obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
-                            obj.setDataNasc(formataData(txtDataNasc.getText()));
+                            obj.setDataNasc(formataData(txtDataNasc.getText().replaceAll("[^0-9]", "")));
 
                             obj.setSenha(txtSenha.getText().equals("") ? null : txtSenha.getText());
 
