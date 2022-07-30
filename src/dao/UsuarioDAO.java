@@ -11,6 +11,8 @@ import model.UsuarioMODEL;
 import java.util.List;
 import java.util.ArrayList;
 import view.FrmHome;
+import view.FrmLogin;
+import view.FrmRecuperarSenha;
 
 public class UsuarioDAO {
     private Connection conex;
@@ -21,7 +23,7 @@ public class UsuarioDAO {
     }
     
     // método para autenticacao de Usuários
-    public void autenticarUsuario(String cpf, String senha) {
+    public boolean autenticarUsuario(String cpf, String senha) {
         // conex = new Conexao().conectaBD(); //REMOVER
         
         try {
@@ -46,13 +48,16 @@ public class UsuarioDAO {
                 }  
                 
                 tela.setVisible(true);
+                return true;
             } else {
                 //mensagem de erro
                 JOptionPane.showMessageDialog(null, "CPF ou senha inválidos");
+                return false;
             }            
         } catch (SQLException error) {
             JOptionPane.showMessageDialog(null, "UsuarioDAO: " + error.getMessage());
         }
+        return false;
     }
     
     //método para listar usuarios
@@ -241,6 +246,37 @@ public class UsuarioDAO {
             JOptionPane.showMessageDialog(null, "Erro ao bucar por cpf. \nUsuarioDAO: " + error.getMessage());
             return null;
         }
+    }
+    
+    // método para autenticacao de Usuários
+    public boolean recuperarSenha(String cpf, String email) {
+        
+        try {
+            String sql = "select * from usuario where cpf = ? and email = ? ";
+            PreparedStatement pstm = conex.prepareStatement(sql);
+            
+            pstm.setString(1, cpf);
+            pstm.setString(2,email);
+            
+            ResultSet rs = pstm.executeQuery();
+            
+            if(rs.next()) { //usuario logou
+                //chamar tela
+                JOptionPane.showMessageDialog(null, "Um email foi enviado para o administrador do sistema para que a sua senha seja redefinida."
+                                                                + "\nApós a redefinição você receberá uma notificação no seu e-mail informando sobre a sua nova senha.");
+                FrmLogin telaLogin = new FrmLogin();   
+                FrmRecuperarSenha telaSenha = new FrmRecuperarSenha();   
+                telaLogin.setVisible(true);
+                return true;
+            } else {
+                //mensagem de erro
+                JOptionPane.showMessageDialog(null, "CPF ou email inválidos");
+                return false;
+            }            
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, "UsuarioDAO - Recuperar Senha: " + error.getMessage());
+        }
+        return false;
     }
 
 }
