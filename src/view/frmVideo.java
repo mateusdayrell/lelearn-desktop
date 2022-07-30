@@ -13,7 +13,7 @@ import model.VideoMODEL;
  *
  * @author Italo
  */
-public class frmVideo extends javax.swing.JFrame {
+public class FrmVideo extends javax.swing.JFrame {
     
     //Antigo CPF para editar
     private String antigoCpf = "";
@@ -44,7 +44,7 @@ public class frmVideo extends javax.swing.JFrame {
     /**
      * Creates new form fmrUsuario
      */
-    public frmVideo() {
+    public FrmVideo() {
         initComponents();
     }
 
@@ -473,7 +473,7 @@ public class frmVideo extends javax.swing.JFrame {
             obj.setAntigoCod(antigoCpf);
             
             VideoDAO dao = new VideoDAO();
-            dao.editarUsuario(obj);
+            dao.editarVideo(obj);
             
         } catch (Exception e) {
         }
@@ -597,13 +597,13 @@ public class frmVideo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmVideo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmVideo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmVideo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmVideo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -611,7 +611,7 @@ public class frmVideo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmVideo().setVisible(true);
+                new FrmVideo().setVisible(true);
             }
         });
     }

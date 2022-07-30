@@ -88,7 +88,7 @@ public class VideoDAO {
     } //fim do cadastro
     
     //método para editar videos
-     public void editarUsuario(VideoMODEL obj) {
+     public void editarVideo(VideoMODEL obj) {
         try {
             //criar o comando SQL
             String sql = "update video set COD_VIDEO=?, COD_CURSO=?, TITULO_VIDEO=?, DESC_VIDEO=?, LINK=?"
