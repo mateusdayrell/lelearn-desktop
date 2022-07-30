@@ -2,7 +2,6 @@
 package dao;
 
 import java.sql.PreparedStatement;
-import dto.UsuarioDTO;
 import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -11,6 +10,9 @@ import jdbc.ConnectionFactory;
 import model.UsuarioMODEL;
 import java.util.List;
 import java.util.ArrayList;
+import view.FrmHome;
+import view.FrmLogin;
+import view.FrmRecuperarSenha;
 
 public class UsuarioDAO {
     private Connection conex;
@@ -21,21 +23,41 @@ public class UsuarioDAO {
     }
     
     // método para autenticacao de Usuários
-    public ResultSet autenticarUsuario(UsuarioDTO objUsuario) {
+    public boolean autenticarUsuario(String cpf, String senha) {
         // conex = new Conexao().conectaBD(); //REMOVER
         
         try {
-            String sql = "select * from usuarios where email = ? and senha = ? ";
+            String sql = "select * from usuario where cpf = ? and senha = ? ";
             PreparedStatement pstm = conex.prepareStatement(sql);
-            pstm.setString(1, objUsuario.getEmail());
-            pstm.setString(2, objUsuario.getSenha());
+            
+            pstm.setString(1, cpf);
+            pstm.setString(2,senha);
             
             ResultSet rs = pstm.executeQuery();
-            return rs;
+            
+            if(rs.next()) { //usuario logou
+                //chamar tela
+                JOptionPane.showMessageDialog(null, "Bem-vindo");
+                FrmHome tela = new FrmHome();
+                tela.nomeLogado = rs.getString("NOME");
+                tela.tipoLogado = rs.getString("TIPO");
+                
+                if(rs.getString("TIPO").equals("comum")) { //caso usuario comum
+                    tela.menuUsuarios.setEnabled(false);
+                    tela.itemMenuControleVideos.setEnabled(false);
+                }  
+                
+                tela.setVisible(true);
+                return true;
+            } else {
+                //mensagem de erro
+                JOptionPane.showMessageDialog(null, "CPF ou senha inválidos");
+                return false;
+            }            
         } catch (SQLException error) {
             JOptionPane.showMessageDialog(null, "UsuarioDAO: " + error.getMessage());
-            return null;
         }
+        return false;
     }
     
     //método para listar usuarios
@@ -61,6 +83,7 @@ public class UsuarioDAO {
                 obj.setNome(rs.getString("NOME"));
                 obj.setEmail(rs.getString("EMAIL"));
                 obj.setTelefone(rs.getString("TELEFONE"));
+                obj.setSenha(rs.getString("SENHA"));
                 obj.setTipo(rs.getString("TIPO"));
                 obj.setDataNasc(rs.getString("DATANASC"));
 
@@ -78,8 +101,8 @@ public class UsuarioDAO {
     public void cadastrarUsuario(UsuarioMODEL obj) {
         try {
             //criar o comando SQL
-            String sql = "insert into usuario (CPF, NOME, TELEFONE, EMAIL, SENHA, TIPO)" // DATANASC
-                        + "values (?, ?, ?, ?, ?, ?)"; // ?
+            String sql = "insert into usuario (CPF, NOME, TELEFONE, EMAIL, SENHA, TIPO, DATANASC)" // DATANASC
+                        + "values (?, ?, ?, ?, ?, ?, ?)"; // ?
             
             //conectar BD e organizar comando SQL
             PreparedStatement pstm = conex.prepareStatement(sql);
@@ -91,7 +114,7 @@ public class UsuarioDAO {
             pstm.setString(4, obj.getEmail());
             pstm.setString(5, obj.getSenha());
             pstm.setString(6, obj.getTipo());
-            //pstm.setString(7, obj.getDataNasc());
+            pstm.setString(7, obj.getDataNasc());
             
             pstm.execute(); //executar comando
             pstm.close();   //encerrar conexao
@@ -106,22 +129,22 @@ public class UsuarioDAO {
     public void editarUsuario(UsuarioMODEL obj) {
         try {
             //criar o comando SQL
-            String sql = "update usuario set CPF=?, NOME=?, TELEFONE=?, EMAIL=?, SENHA=?, TIPO=?" // , DATANASC=?
+            String sql = "update usuario set NOME=?, TELEFONE=?, EMAIL=?, SENHA=?, TIPO=?, DATANASC=?" // , DATANASC=?
                        + "where CPF=?";
             
             //conectar BD e organizar comando SQL
             PreparedStatement pstm = conex.prepareStatement(sql);
             
             //receber valores do Model (id da ?, valor)
-            pstm.setString(1, obj.getCpf());
-            pstm.setString(2, obj.getNome());
-            pstm.setString(3, obj.getTelefone());
-            pstm.setString(4, obj.getEmail());
-            pstm.setString(5, obj.getSenha());
-            pstm.setString(6, obj.getTipo());
-            //pstm.setString(7, obj.getDataNasc());
+            //pstm.setString(1, obj.getCpf());
+            pstm.setString(1, obj.getNome());
+            pstm.setString(2, obj.getTelefone());
+            pstm.setString(3, obj.getEmail());
+            pstm.setString(4, obj.getSenha());
+            pstm.setString(5, obj.getTipo());
+            pstm.setString(6, obj.getDataNasc());
             
-            pstm.setString(7, obj.getAntigoCpf());
+            pstm.setString(7, obj.getCpf());
             
             pstm.execute(); //executar comando
             pstm.close();   //encerrar conexao
@@ -223,6 +246,37 @@ public class UsuarioDAO {
             JOptionPane.showMessageDialog(null, "Erro ao bucar por cpf. \nUsuarioDAO: " + error.getMessage());
             return null;
         }
+    }
+    
+    // método para autenticacao de Usuários
+    public boolean recuperarSenha(String cpf, String email) {
+        
+        try {
+            String sql = "select * from usuario where cpf = ? and email = ? ";
+            PreparedStatement pstm = conex.prepareStatement(sql);
+            
+            pstm.setString(1, cpf);
+            pstm.setString(2,email);
+            
+            ResultSet rs = pstm.executeQuery();
+            
+            if(rs.next()) { //usuario logou
+                //chamar tela
+                JOptionPane.showMessageDialog(null, "Um email foi enviado para o administrador do sistema para que a sua senha seja redefinida."
+                                                                + "\nApós a redefinição você receberá uma notificação no seu e-mail informando sobre a sua nova senha.");
+                FrmLogin telaLogin = new FrmLogin();   
+                FrmRecuperarSenha telaSenha = new FrmRecuperarSenha();   
+                telaLogin.setVisible(true);
+                return true;
+            } else {
+                //mensagem de erro
+                JOptionPane.showMessageDialog(null, "CPF ou email inválidos");
+                return false;
+            }            
+        } catch (SQLException error) {
+            JOptionPane.showMessageDialog(null, "UsuarioDAO - Recuperar Senha: " + error.getMessage());
+        }
+        return false;
     }
 
 }

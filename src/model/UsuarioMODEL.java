@@ -73,15 +73,7 @@ private String antigoCpf;
         return dataNasc;
     }
 
-    public void setDataNasc(String dataNasc) {
-//        String data = dataNasc;
-//            
-//        String dia = data.substring(0,2);
-//        String mes = data.substring(3,5);
-//        String ano = data.substring(6);
-//        
-//        String dataMysql = ano+"-"+mes+"-"+dia;
-        
+    public void setDataNasc(String dataNasc) {        
         this.dataNasc = dataNasc;
     }
     

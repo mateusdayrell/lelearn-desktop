@@ -6,6 +6,7 @@ package view;
 
 import dao.UsuarioDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.UsuarioMODEL;
 
@@ -13,7 +14,7 @@ import model.UsuarioMODEL;
  *
  * @author mateu
  */
-public class frmUsuario extends javax.swing.JFrame {
+public class FrmUsuario extends javax.swing.JFrame {
     
     //Antigo CPF para editar
     private String antigoCpf = "";
@@ -35,15 +36,93 @@ public class frmUsuario extends javax.swing.JFrame {
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                u.getDataNasc()
+                dateToString(u.getDataNasc()),
+                u.getSenha()
             });
         }        
+    }
+    
+    //verifica se os campos de senha são iguais
+    public boolean verificarSenha() {
+        return ((txtSenha.getText() == null ? txtSenha.getText() == null : txtSenha.getText().equals(txtConfirmarSenha.getText())));
+    }
+    
+    //verifica se o campo Cpf foi alterdado
+    public boolean verificarCpf() {
+        String cpf = txtCpf.getText().replaceAll("[^0-9]", "");
+        if("".equals(cpf)){
+            JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
+            txtCpf.setText(antigoCpf);
+            return false;
+        }
+        if(!cpf.equals(antigoCpf)){
+            JOptionPane.showMessageDialog(null, "O CPF não pode ser modificado!");
+            txtCpf.setText(antigoCpf);
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    public String formataData(String dataNasc) {
+        String data = dataNasc;
+        if(data == ""){
+            return null;
+        }
+        String dia = data.substring(0,2);
+        String mes = data.substring(3,5);
+        String ano = data.substring(6);
+        
+        String dataMysql = ano+"-"+mes+"-"+dia;
+        return dataMysql;
+    }
+    
+    public String dateToString(String data){
+        if(data == null) {
+            return null;
+        }
+        String ano = data.substring(0,4);
+        String mes = data.substring(5,7);
+        String dia = data.substring(8);
+
+        String dataBr = dia+"/"+mes+"/"+ano;
+        return dataBr;
+    }
+    
+    public void limparAbaDados(){
+        txtNome.setText("");
+        txtCpf.setText("");
+        txtEmail.setText("");
+        txtTipo.setSelectedItem("Selecione um tipo");
+        txtSenha.setText("");
+        txtConfirmarSenha.setText("");
+        txtTelefone.setText("");
+        txtDataNasc.setText("");
+    }
+    
+    public void limparAbaConsulta(){
+        txtPesqCpf.setText("");
+        txtPesqNome.setText("");
+        btnPesquisar.doClick();
+    }
+    
+    public boolean verificarCampos(){
+        if(txtEmail.getText().equals("") || txtSenha.getText().equals("") ||
+           txtCpf.getText().replaceAll("[^0-9]", "").equals("") ||
+           ((String) txtTipo.getSelectedItem()).equals("Selecione um tipo") ||        
+           txtConfirmarSenha.getText().equals("") || txtNome.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Campo obgratório não preenchido detectado! \nPara prosseguir, preencha os seguintes campos:"
+                                                                    + "\nNome, CPF, Email, Tipo, Senha e Confirmar senha."); 
+                return false;
+        }
+        return true;
     }
 
     /**
      * Creates new form fmrUsuario
      */
-    public frmUsuario() {
+    public FrmUsuario() {
         initComponents();
     }
 
@@ -91,7 +170,7 @@ public class frmUsuario extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        btnNovo = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -99,7 +178,9 @@ public class frmUsuario extends javax.swing.JFrame {
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("LeLearn - Usuários");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -110,6 +191,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 38)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boss-64.png"))); // NOI18N
         jLabel1.setText("Usuários");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -124,14 +206,37 @@ public class frmUsuario extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jTabbedPane1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jTabbedPane1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTabbedPane1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTabbedPane1FocusLost(evt);
+            }
+        });
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPanel2FocusGained(evt);
+            }
+        });
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel14.setText("CPF:");
@@ -149,6 +254,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jLabel15.setText("Nome:");
 
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar-16.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,7 +268,7 @@ public class frmUsuario extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CPF", "Nome", "Tipo", "E-mail", "Telefone", "Data de nascimento"
+                "CPF", "Nome", "Tipo", "E-mail", "Telefone", "Data de nascimento", "Senha"
             }
         ));
         tabelaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -171,6 +277,11 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tabelaUsuarios);
+        if (tabelaUsuarios.getColumnModel().getColumnCount() > 0) {
+            tabelaUsuarios.getColumnModel().getColumn(6).setMinWidth(0);
+            tabelaUsuarios.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tabelaUsuarios.getColumnModel().getColumn(6).setMaxWidth(0);
+        }
 
         txtPesqCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,20 +312,21 @@ public class frmUsuario extends javax.swing.JFrame {
                         .addComponent(txtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnPesquisar)
-                        .addGap(0, 302, Short.MAX_VALUE)))
+                        .addGap(0, 282, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15)
-                    .addComponent(txtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPesquisar)
-                    .addComponent(txtPesqCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPesqNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel14)
+                        .addComponent(jLabel15)
+                        .addComponent(txtPesqCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPesquisar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -222,6 +334,11 @@ public class frmUsuario extends javax.swing.JFrame {
         jTabbedPane1.addTab("Conslta", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPanel3FocusGained(evt);
+            }
+        });
 
         jLabel2.setText("Nome");
 
@@ -279,7 +396,12 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jLabel7.setText("Tipo:");
 
-        txtTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um tipo", "user", "admin" }));
+        txtTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um tipo", "comum", "admin" }));
+        txtTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTipoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -351,13 +473,15 @@ public class frmUsuario extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Dados", jPanel3);
 
-        btnSalvar.setText("Salvar");
+        btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cadastrar-24.png"))); // NOI18N
+        btnSalvar.setText("Cadastrar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
             }
         });
 
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/apagar-24.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,6 +489,7 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar-24.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,10 +497,11 @@ public class frmUsuario extends javax.swing.JFrame {
             }
         });
 
-        btnNovo.setText("Novo");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/limpar-24.png"))); // NOI18N
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
+                btnLimparActionPerformed(evt);
             }
         });
 
@@ -388,14 +514,14 @@ public class frmUsuario extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(228, 228, 228)
-                .addComponent(btnNovo)
-                .addGap(18, 18, 18)
+                .addGap(158, 158, 158)
                 .addComponent(btnSalvar)
                 .addGap(18, 18, 18)
-                .addComponent(btnEditar)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnExcluir)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -404,16 +530,17 @@ public class frmUsuario extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnEditar)
                     .addComponent(btnExcluir)
-                    .addComponent(btnNovo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLimpar))
+                .addGap(24, 24, 24))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPesqNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqNomeActionPerformed
@@ -449,7 +576,7 @@ public class frmUsuario extends javax.swing.JFrame {
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                u.getDataNasc()
+                dateToString(u.getDataNasc())
             });
         }
     }//GEN-LAST:event_btnPesquisarActionPerformed
@@ -457,20 +584,34 @@ public class frmUsuario extends javax.swing.JFrame {
     //botao salvar
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         try {
-            UsuarioMODEL obj = new UsuarioMODEL();
+            Integer tela = jTabbedPane1.getSelectedIndex();
             
-            obj.setNome(txtNome.getText());
-            obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
-            obj.setEmail(txtEmail.getText());
-            obj.setTipo((String) txtTipo.getSelectedItem());
-            obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
-            obj.setDataNasc(txtDataNasc.getText());
-            
-            obj.setSenha(txtSenha.getText());
-            
-            UsuarioDAO dao = new UsuarioDAO();
-            dao.cadastrarUsuario(obj);
-            
+            if(tela.equals(1)){
+                if(verificarCampos()){
+                    if(verificarSenha()){
+                        UsuarioMODEL obj = new UsuarioMODEL();
+
+                        obj.setNome(txtNome.getText());
+                        obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+                        obj.setEmail(txtEmail.getText());
+                        obj.setTipo((String) txtTipo.getSelectedItem());
+                        obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
+                        obj.setDataNasc(formataData(txtDataNasc.getText().replaceAll("[^0-9]", "")));
+
+                        obj.setSenha(txtSenha.getText());
+
+                        UsuarioDAO dao = new UsuarioDAO();
+                        dao.cadastrarUsuario(obj);
+                        limparAbaDados();
+                    }
+                    else {
+                        //mensagem de erro
+                        JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+                    }
+                }
+            } else {
+                jTabbedPane1.setSelectedIndex(1);
+            }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -478,13 +619,33 @@ public class frmUsuario extends javax.swing.JFrame {
     //botao excluir
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
-            UsuarioMODEL obj = new UsuarioMODEL();
+            Integer tela = jTabbedPane1.getSelectedIndex();
             
-            obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
-            
-            UsuarioDAO dao = new UsuarioDAO();
-            dao.excluirUsuario(obj);
-            
+            if(tela.equals(1)){
+                //Verifica se possui algum usuario selecionado
+                if ("".equals(txtCpf.getText().replaceAll("[^0-9]", ""))) {
+                    JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
+                } 
+                else {
+                    Object[] options = { "Sim", "Não" };
+                    int p = JOptionPane.showOptionDialog(null, "Deseja realmente excluir o usuário de CPF: " + txtCpf.getText() + "?\nCaso prossiga com a exclusão, o mesmo não será mais recuperado.", "Atenção",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, 
+                            options, options[0]);
+
+                    if(p == JOptionPane.YES_OPTION){
+                        UsuarioMODEL obj = new UsuarioMODEL();
+
+                        obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+
+                        UsuarioDAO dao = new UsuarioDAO();
+                        dao.excluirUsuario(obj);
+
+                        limparAbaDados(); 
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
+            }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -492,29 +653,48 @@ public class frmUsuario extends javax.swing.JFrame {
     //botao editar
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
-            UsuarioMODEL obj = new UsuarioMODEL();
+            Integer tela = jTabbedPane1.getSelectedIndex();
             
-            obj.setNome(txtNome.getText());
-            obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
-            obj.setEmail(txtEmail.getText());
-            obj.setTipo((String) txtTipo.getSelectedItem());
-            obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
-            obj.setDataNasc(txtDataNasc.getText());
+            if(tela.equals(1)){
+                if(verificarCampos()){
+                    if(verificarSenha()){
+                        if(verificarCpf()) {
+                            UsuarioMODEL obj = new UsuarioMODEL();
+
+                            obj.setNome(txtNome.getText());
+                            obj.setCpf(txtCpf.getText().replaceAll("[^0-9]", ""));
+                            obj.setEmail(txtEmail.getText());
+                            obj.setTipo((String) txtTipo.getSelectedItem());
+                            obj.setTelefone(txtTelefone.getText().replaceAll("[^0-9]", ""));
+                            obj.setDataNasc(formataData(txtDataNasc.getText()));
+
+                            obj.setSenha(txtSenha.getText().equals("") ? null : txtSenha.getText());
+
+                            //obj.setAntigoCpf(antigoCpf);
+
+                            UsuarioDAO dao = new UsuarioDAO();
+                            dao.editarUsuario(obj);
+                            //limparAbaDados();
+                        }
+                    }
+                    else {
+                        //mensagem de erro
+                        JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
+            }
             
-            obj.setSenha(txtSenha.getText());
-            
-            obj.setAntigoCpf(antigoCpf);
-            
-            UsuarioDAO dao = new UsuarioDAO();
-            dao.editarUsuario(obj);
             
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNovoActionPerformed
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limparAbaConsulta();
+        limparAbaDados();
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
@@ -549,6 +729,8 @@ public class frmUsuario extends javax.swing.JFrame {
         txtEmail.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 3).toString());
         txtTelefone.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 4).toString());
         txtDataNasc.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 5).toString());
+        txtSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
+        txtConfirmarSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
     }//GEN-LAST:event_tabelaUsuariosMouseClicked
 
     private void txtPesqCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCpfActionPerformed
@@ -577,7 +759,7 @@ public class frmUsuario extends javax.swing.JFrame {
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                u.getDataNasc()
+                dateToString(u.getDataNasc())
             });
         }
     }//GEN-LAST:event_txtPesqCpfKeyPressed
@@ -603,10 +785,38 @@ public class frmUsuario extends javax.swing.JFrame {
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                u.getDataNasc()
+                dateToString(u.getDataNasc())
             });
         }
     }//GEN-LAST:event_txtPesqNomeKeyPressed
+
+    private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
+        //Abrir aba conculta
+    }//GEN-LAST:event_jTabbedPane1FocusGained
+
+    private void jTabbedPane1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTabbedPane1FocusLost
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void txtTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTipoActionPerformed
+
+    private void jPanel2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusGained
+        
+    }//GEN-LAST:event_jPanel2FocusGained
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void jPanel3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel3FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel3FocusGained
 
     /**
      * @param args the command line arguments
@@ -625,21 +835,23 @@ public class frmUsuario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmUsuario().setVisible(true);
+                new FrmUsuario().setVisible(true);
             }
         });
     }
@@ -647,7 +859,7 @@ public class frmUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
@@ -664,11 +876,11 @@ public class frmUsuario extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    public javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel2;
+    public javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    public javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable tabelaUsuarios;
     private javax.swing.JPasswordField txtConfirmarSenha;
