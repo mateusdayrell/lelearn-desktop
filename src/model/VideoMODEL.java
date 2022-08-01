@@ -14,7 +14,6 @@ public class VideoMODEL {
     private String TITULO_VIDEO;
     private String DESC_VIDEO;
     private String LINK;
-    private String antigoCod;
 
     public String getCOD_VIDEO() {
         return COD_VIDEO;
@@ -55,14 +54,4 @@ public class VideoMODEL {
     public void setLINK(String LINK) {
         this.LINK = LINK;
     }
-    
-    public String getAntigoCod() {
-        return antigoCod;
-    }
-
-    public void setAntigoCod(String antigoCod) {
-        this.antigoCod = antigoCod;
-    }
-    
-    
 }

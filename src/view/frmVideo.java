@@ -6,6 +6,7 @@ package view;
 
 import dao.VideoDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.VideoMODEL;
 
@@ -17,6 +18,34 @@ public class FrmVideo extends javax.swing.JFrame {
     
     //Antigo CPF para editar
     private String antigoCod = "";
+    
+    public boolean verificarCampos(){
+        if(txtCodigo.getText().replaceAll("[^0-9]", "").equals("") || 
+           txtCurso.getText().replaceAll("[^0-9]", "").equals("") ||
+           txtTitulo.getText().equals("") || txtLink.getText().equals("")){
+                JOptionPane.showMessageDialog(null, "Campo obgratório não preenchido detectado! \nPara prosseguir, preencha os seguintes campos:"
+                                                                    + "\nCodigo, Curso, Título e Link."); 
+                return false;
+        }
+        return true;
+    }
+    
+    public boolean verificarChavePrimaria() {
+        String codigo = txtCodigo.getText().replaceAll("[^0-9]", "");
+        if("".equals(codigo)){
+            JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!");
+            txtCodigo.setText(antigoCod);
+            return false;
+        }
+        if(!codigo.equals(antigoCod)){
+            JOptionPane.showMessageDialog(null, "O código do vídeo não pode ser modificado!");
+            txtCodigo.setText(antigoCod);
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
     
     //Metodo listar tabela
     public void listar() {
@@ -35,8 +64,6 @@ public class FrmVideo extends javax.swing.JFrame {
                 u.getTITULO_VIDEO(),
                 u.getDESC_VIDEO(),
                 u.getLINK()
-                
-                
             });
         }        
     }
@@ -74,20 +101,21 @@ public class FrmVideo extends javax.swing.JFrame {
         txtPesqCod = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtDescricao = new javax.swing.JTextField();
         txtLink = new javax.swing.JTextField();
-        txtCurso = new javax.swing.JTextField();
-        btnSalvar = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JFormattedTextField();
+        txtCurso = new javax.swing.JFormattedTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescricao = new javax.swing.JTextArea();
+        btnCadastrar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
-        btnNovo = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -96,6 +124,7 @@ public class FrmVideo extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -106,6 +135,7 @@ public class FrmVideo extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 38)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/video-camera-64.png"))); // NOI18N
         jLabel1.setText("Videos");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -120,9 +150,9 @@ public class FrmVideo extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jTabbedPane1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -132,6 +162,7 @@ public class FrmVideo extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel14.setText("Codigo: ");
 
+        txtPesqTitulo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         txtPesqTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesqTituloActionPerformed(evt);
@@ -143,8 +174,11 @@ public class FrmVideo extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel15.setText("Titulo :");
 
+        btnPesquisar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar-16.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,6 +202,7 @@ public class FrmVideo extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelaVideos);
 
+        txtPesqCod.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         txtPesqCod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesqCodActionPerformed(evt);
@@ -197,7 +232,7 @@ public class FrmVideo extends javax.swing.JFrame {
                         .addComponent(txtPesqTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnPesquisar)
-                        .addGap(0, 285, Short.MAX_VALUE)))
+                        .addGap(0, 255, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -219,31 +254,19 @@ public class FrmVideo extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setText("CODIGO :");
+        jLabel2.setText("Código:");
 
-        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoActionPerformed(evt);
-            }
-        });
+        jLabel3.setText("Curso:");
 
-        jLabel3.setText("CURSO :");
+        jLabel4.setText("Título:");
 
-        jLabel4.setText("TITULO :");
+        jLabel5.setText("Descrição:");
 
-        jLabel5.setText("DESCRIÇÃO :");
-
-        jLabel9.setText("LINK :");
+        jLabel9.setText("Link:");
 
         txtTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTituloActionPerformed(evt);
-            }
-        });
-
-        txtDescricao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDescricaoActionPerformed(evt);
             }
         });
 
@@ -253,45 +276,55 @@ public class FrmVideo extends javax.swing.JFrame {
             }
         });
 
-        txtCurso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCursoActionPerformed(evt);
-            }
-        });
+        try {
+            txtCodigo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtCurso.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        txtDescricao.setColumns(20);
+        txtDescricao.setRows(5);
+        jScrollPane2.setViewportView(txtDescricao);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel4)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDescricao))
-                .addGap(44, 44, 44)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(jLabel7)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(141, 141, 141)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addComponent(jLabel7))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 180, Short.MAX_VALUE))))
+                                .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(275, Short.MAX_VALUE))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,34 +332,42 @@ public class FrmVideo extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(18, 58, Short.MAX_VALUE)
+                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addContainerGap(65, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(93, 93, 93))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("Dados", jPanel3);
 
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cadastrar-24.png"))); // NOI18N
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
+        btnExcluir.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/apagar-24.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -334,6 +375,8 @@ public class FrmVideo extends javax.swing.JFrame {
             }
         });
 
+        btnEditar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar-24.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -341,10 +384,12 @@ public class FrmVideo extends javax.swing.JFrame {
             }
         });
 
-        btnNovo.setText("Novo");
-        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/limpar-24.png"))); // NOI18N
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoActionPerformed(evt);
+                btnLimparActionPerformed(evt);
             }
         });
 
@@ -357,15 +402,15 @@ public class FrmVideo extends javax.swing.JFrame {
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(228, 228, 228)
-                .addComponent(btnNovo)
+                .addGap(158, 158, 158)
+                .addComponent(btnCadastrar)
                 .addGap(18, 18, 18)
-                .addComponent(btnSalvar)
+                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnEditar)
+                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnExcluir)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(153, 153, 153))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,18 +418,19 @@ public class FrmVideo extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvar)
+                    .addComponent(btnCadastrar)
                     .addComponent(btnEditar)
                     .addComponent(btnExcluir)
-                    .addComponent(btnNovo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLimpar))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Consulta");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPesqTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqTituloActionPerformed
@@ -426,23 +472,34 @@ public class FrmVideo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
     
     //botao salvar
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         try {
-            VideoMODEL obj = new VideoMODEL();
+            Integer tela = jTabbedPane1.getSelectedIndex();
             
-            obj.setCOD_VIDEO(txtCodigo.getText().replaceAll("[^0-9]", ""));
-            obj.setCOD_CURSO(txtDescricao.getText().replaceAll("[^0-9]", ""));
-            obj.setTITULO_VIDEO(txtTitulo.getText());
-            obj.setDESC_VIDEO(txtDescricao.getText());
-            obj.setLINK(txtLink.getText());
+            if(tela.equals(1)){
+                if(verificarCampos()){
+                    VideoMODEL obj = new VideoMODEL();
+            
+                    obj.setCOD_VIDEO(txtCodigo.getText());
+                    obj.setCOD_CURSO(txtCurso.getText());
+                    obj.setTITULO_VIDEO(txtTitulo.getText());
+                    obj.setDESC_VIDEO(txtDescricao.getText());
+                    obj.setLINK(txtLink.getText());
+
+
+                    VideoDAO dao = new VideoDAO();
+                    dao.cadastrarVideo(obj);
+                }
+            } else {
+                jTabbedPane1.setSelectedIndex(1);
+            }
             
             
-            VideoDAO dao = new VideoDAO();
-            dao.cadastrarVideo(obj);
+            
             
         } catch (Exception e) {
         }
-    }//GEN-LAST:event_btnSalvarActionPerformed
+    }//GEN-LAST:event_btnCadastrarActionPerformed
     
     //botao excluir
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -461,35 +518,39 @@ public class FrmVideo extends javax.swing.JFrame {
     //botao editar
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         try {
-            VideoMODEL obj = new VideoMODEL();
+            Integer tela = jTabbedPane1.getSelectedIndex();
             
-            obj.setTITULO_VIDEO(txtTitulo.getText());
-            obj.setCOD_VIDEO(txtCodigo.getText().replaceAll("[^0-9]", ""));
-            obj.setDESC_VIDEO(txtDescricao.getText());
-            obj.setCOD_CURSO(txtDescricao.getText().replaceAll("[^0-9]", ""));
-            obj.setLINK(txtLink.getText());
+            if(tela.equals(1)){
+                if(verificarCampos()){
+                    if(verificarChavePrimaria()){
+                        VideoMODEL obj = new VideoMODEL();
             
+                        obj.setCOD_VIDEO(txtCodigo.getText());
+                        obj.setCOD_CURSO(txtCurso.getText());
+                        obj.setTITULO_VIDEO(txtTitulo.getText());
+                        obj.setDESC_VIDEO(txtDescricao.getText());
+                        obj.setLINK(txtLink.getText());
+
+                        VideoDAO dao = new VideoDAO();
+                        dao.editarVideo(obj);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!");
+            }
             
-            obj.setAntigoCod(antigoCod);
-            
-            VideoDAO dao = new VideoDAO();
-            dao.editarVideo(obj);
             
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnNovoActionPerformed
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTituloActionPerformed
-
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         // Carregar Lista
@@ -503,10 +564,10 @@ public class FrmVideo extends javax.swing.JFrame {
         antigoCod = tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString();
         
         txtCodigo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString());
-        txtTitulo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
+        txtCurso.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
+        txtTitulo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 2).toString());
         txtDescricao.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 3).toString());
         txtLink.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 4).toString());
-        txtDescricao.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 5).toString());
     }//GEN-LAST:event_tabelaVideosMouseClicked
 
     private void txtPesqCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCodActionPerformed
@@ -568,17 +629,9 @@ public class FrmVideo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPesqTituloKeyPressed
 
-    private void txtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDescricaoActionPerformed
-
     private void txtLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLinkActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLinkActionPerformed
-
-    private void txtCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCursoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCursoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -617,11 +670,11 @@ public class FrmVideo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnNovo;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnPesquisar;
-    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -638,12 +691,13 @@ public class FrmVideo extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable tabelaVideos;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtCurso;
-    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JFormattedTextField txtCodigo;
+    private javax.swing.JFormattedTextField txtCurso;
+    private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtLink;
     private javax.swing.JTextField txtPesqCod;
     private javax.swing.JTextField txtPesqTitulo;

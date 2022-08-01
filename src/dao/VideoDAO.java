@@ -83,26 +83,28 @@ public class VideoDAO {
             
             JOptionPane.showMessageDialog(null, "Video cadastrado com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, erro.getMessage() + "Erro ao cadastrar Video. \nVideoDAO: ");
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Video. \nVideoDAO: " + erro.getMessage());
         }
     } //fim do cadastro
     
     //método para editar videos
      public void editarVideo(VideoMODEL obj) {
         try {
+            System.out.println("Entrou");
             //criar o comando SQL
-            String sql = "update video set COD_VIDEO=?, COD_CURSO=?, TITULO_VIDEO=?, DESC_VIDEO=?, LINK=?"
+            String sql = "update video set COD_CURSO=?, TITULO_VIDEO=?, DESC_VIDEO=?, LINK=?"
                        + "where COD_VIDEO=?";
             
             //conectar BD e organizar comando SQL
             PreparedStatement pstm = conex.prepareStatement(sql);
             
             //receber valores do Model (id da ?, valor)
-            pstm.setString(1, obj.getCOD_VIDEO());
-            pstm.setString(2, obj.getCOD_CURSO());
-            pstm.setString(3, obj.getTITULO_VIDEO());
-            pstm.setString(4, obj.getDESC_VIDEO());
-            pstm.setString(5, obj.getLINK());
+            //pstm.setString(1, obj.getCOD_VIDEO());
+            pstm.setString(1, obj.getCOD_CURSO());
+            pstm.setString(2, obj.getTITULO_VIDEO());
+            pstm.setString(3, obj.getDESC_VIDEO());
+            pstm.setString(4, obj.getLINK());
+            pstm.setString(5, obj.getCOD_VIDEO());
             
             
             pstm.execute(); //executar comando

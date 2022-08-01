@@ -180,7 +180,6 @@ public class FrmUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("LeLearn - Usuários");
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -252,8 +251,10 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel15.setText("Nome:");
 
+        btnPesquisar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar-16.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -312,7 +313,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                         .addComponent(txtPesqNome, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnPesquisar)
-                        .addGap(0, 282, Short.MAX_VALUE)))
+                        .addGap(0, 273, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -340,22 +341,29 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel2.setText("Nome");
 
+        txtNome.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel3.setText("CPF:");
 
+        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel4.setText("Email:");
 
+        jLabel5.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel5.setText("Senha:");
 
+        jLabel6.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel6.setText("Telefone:");
 
+        jLabel9.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel9.setText("Confirmar senha:");
 
         try {
@@ -363,12 +371,14 @@ public class FrmUsuario extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtTelefone.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         txtTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTelefoneActionPerformed(evt);
             }
         });
 
+        jLabel13.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel13.setText("Data de nascimento:");
 
         try {
@@ -376,12 +386,14 @@ public class FrmUsuario extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtDataNasc.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         txtDataNasc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDataNascActionPerformed(evt);
             }
         });
 
+        txtEmail.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailActionPerformed(evt);
@@ -393,7 +405,13 @@ public class FrmUsuario extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtCpf.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
 
+        txtSenha.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+
+        txtConfirmarSenha.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+
+        jLabel7.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel7.setText("Tipo:");
 
         txtTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um tipo", "comum", "admin" }));
@@ -439,7 +457,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(txtTipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtCpf, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(0, 159, Short.MAX_VALUE))
+                .addGap(0, 161, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,11 +486,12 @@ public class FrmUsuario extends javax.swing.JFrame {
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dados", jPanel3);
 
+        btnSalvar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cadastrar-24.png"))); // NOI18N
         btnSalvar.setText("Cadastrar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -481,6 +500,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnExcluir.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/apagar-24.png"))); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -489,6 +509,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnEditar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar-24.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -497,6 +518,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnLimpar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/limpar-24.png"))); // NOI18N
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
