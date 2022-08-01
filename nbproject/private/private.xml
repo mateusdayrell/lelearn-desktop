@@ -5,8 +5,8 @@
         <group>
             <file>file:/C:/dev/java/netbeans/LeLearn/src/view/FrmHome.java</file>
             <file>file:/C:/dev/java/netbeans/LeLearn/src/jdbc/TestaConexao.java</file>
-            <file>file:/C:/dev/java/netbeans/LeLearn/src/view/frmVideo.java</file>
             <file>file:/C:/dev/java/netbeans/LeLearn/src/view/FrmUsuario.java</file>
+            <file>file:/C:/dev/java/netbeans/LeLearn/src/view/FrmLogin.java</file>
             <file>file:/C:/dev/java/netbeans/LeLearn/src/dao/UsuarioDAO.java</file>
             <file>file:/C:/dev/java/netbeans/LeLearn/src/view/FrmRecuperarSenha.java</file>
         </group>
