@@ -1,6 +1,3 @@
-SQL - LELEARN
-========================================================
-
 CREATE TABLE USUARIO(
 CPF CHAR(11) PRIMARY KEY,
 NOME VARCHAR(40) NOT NULL,
@@ -59,4 +56,4 @@ VALUES
 ('0002', 'Curso completo NodeJS', 'Neste curso você vai aprender a criar aplicações utilizando o NodeJS na prática.'),
 ('0003', 'Curso React Native', 'Neste curso você vai aprender a criar aplicações mobile tanto para Android quanto IOS através utilizando o React Native.'),
 ('0004', 'Curso Laravel', 'Neste você vai aprender todos os fundamentos do Laravel, além de construir um projeto prático utilizando esse framework.'),
-('0005', 'Curso CSS avançado', 'Neste curso você aprenderá técnicas avançadas do CS
+('0005', 'Curso CSS avançado', 'Neste curso você aprenderá técnicas avançadas do CS');
