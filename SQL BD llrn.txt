@@ -52,3 +52,11 @@ FOREIGN KEY (COD_CURSO) REFERENCES CURSO(COD_CURSO));
 
 INSERT INTO usuario (CPF, NOME, EMAIL, SENHA, TIPO)
 VALUES ('00000000001', 'Administrador', 'admin@email.com', 'password', 'admin');
+
+INSERT INTO curso
+VALUES 
+	('0001', 'Desenvolvimento web básico', 'Neste curso você vai aprender tudo aquilo que é necessário para iniciar no desenvolvimento web, mesmo sem nenhum conhecimento prévio na área.'),
+	('0002', 'Curso completo NodeJS', 'Neste curso você vai aprender a criar aplicações utilizando o NodeJS na prática.'),
+	('0003', 'Curso React Native', 'Neste curso você vai aprender a criar aplicações mobile tanto para Android quanto IOS através utilizando o React Native.'),
+	('0004', 'Curso Laravel', 'Neste você vai aprender todos os fundamentos do Laravel, além de construir um projeto prático utilizando esse framework.'),
+	('0005', 'Curso CSS avançado', 'Neste curso você aprenderá técnicas avançadas do CS
