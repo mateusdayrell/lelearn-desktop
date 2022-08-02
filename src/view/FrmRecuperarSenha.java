@@ -77,6 +77,7 @@ public class FrmRecuperarSenha extends javax.swing.JFrame {
         btnConfirmar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         btnConfirmar.setForeground(new java.awt.Color(94, 23, 235));
         btnConfirmar.setText("Confirmar");
+        btnConfirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmarActionPerformed(evt);
@@ -85,6 +86,7 @@ public class FrmRecuperarSenha extends javax.swing.JFrame {
 
         btnVoltar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         btnVoltar.setText("Voltar");
+        btnVoltar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);

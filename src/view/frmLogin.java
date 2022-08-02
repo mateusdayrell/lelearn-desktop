@@ -120,6 +120,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addComponent(jLabel4))
         );
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("SansSerif", 0, 10)); // NOI18N
         jButton1.setForeground(new java.awt.Color(94, 23, 235));
         jButton1.setText("Recuperar senha");

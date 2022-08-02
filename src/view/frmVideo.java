@@ -193,6 +193,7 @@ public class FrmVideo extends javax.swing.JFrame {
         btnPesquisar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar-16.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarActionPerformed(evt);
@@ -313,7 +314,7 @@ public class FrmVideo extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(jLabel2)
@@ -323,8 +324,8 @@ public class FrmVideo extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(224, 224, 224)
                                 .addComponent(jLabel7))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(128, 128, 128)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -338,7 +339,7 @@ public class FrmVideo extends javax.swing.JFrame {
                             .addComponent(txtLink)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
                             .addComponent(txtTitulo))))
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(202, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,6 +373,7 @@ public class FrmVideo extends javax.swing.JFrame {
         btnCadastrar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cadastrar-24.png"))); // NOI18N
         btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -381,6 +383,7 @@ public class FrmVideo extends javax.swing.JFrame {
         btnExcluir.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/apagar-24.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -390,6 +393,7 @@ public class FrmVideo extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar-24.png"))); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -399,6 +403,7 @@ public class FrmVideo extends javax.swing.JFrame {
         btnLimpar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/limpar-24.png"))); // NOI18N
         btnLimpar.setText("Limpar");
+        btnLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimparActionPerformed(evt);
@@ -507,6 +512,7 @@ public class FrmVideo extends javax.swing.JFrame {
                 jTabbedPane1.setSelectedIndex(1);
             }      
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage());
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
     
@@ -528,6 +534,7 @@ public class FrmVideo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!");
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + e.getMessage());
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
     
@@ -553,16 +560,19 @@ public class FrmVideo extends javax.swing.JFrame {
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!");
-            }
-            
-            
+            }   
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao editar: " + e.getMessage());
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        limparAbaDados();
-        LimparAbaConsulta();
+        try {
+            limparAbaDados();
+            LimparAbaConsulta();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao limpar: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
@@ -576,17 +586,21 @@ public class FrmVideo extends javax.swing.JFrame {
 
     private void tabelaVideosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVideosMouseClicked
         //Seleciona os dados da tabela e envia para aba de "DADOS"
-        jTabbedPane1.setSelectedIndex(1);
+        try {
+            jTabbedPane1.setSelectedIndex(1);
         
-        antigoCod = tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString();
-        
-        txtCodigo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString());
-//        txtCurso.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
-        txtTitulo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 2).toString());
-        txtDescricao.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 3).toString());
-        txtLink.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 4).toString());
-        
-        txtCurso.setSelectedItem(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
+            antigoCod = tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString();
+
+            txtCodigo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString());
+    //        txtCurso.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
+            txtTitulo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 2).toString());
+            txtDescricao.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 3).toString());
+            txtLink.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 4).toString());
+
+            txtCurso.setSelectedItem(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao capturar dados da tabela: " + e.getMessage());
+        }
     }//GEN-LAST:event_tabelaVideosMouseClicked
 
     private void txtPesqCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCodigoActionPerformed
@@ -594,27 +608,31 @@ public class FrmVideo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesqCodigoActionPerformed
 
     private void txtPesqCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCodigoKeyPressed
-        String cod = "%" + txtPesqCodigo.getText().replaceAll("[^0-9]", "") + "%";
+        try {
+            String cod = "%" + txtPesqCodigo.getText().replaceAll("[^0-9]", "") + "%";
                 
-        VideoDAO dao = new VideoDAO();
-        
-        List<VideoMODEL> lista = null; 
-        
-        lista = dao.buscarPorCod(cod);
-        
-        DefaultTableModel dados = (DefaultTableModel) tabelaVideos.getModel();
-        
-        dados.setNumRows(0); //limpar dados da tabela
-     
-        //inserir dados da lista na tabela
-        for(VideoMODEL u: lista) {
-            dados.addRow(new Object[]{
-                u.getCOD_VIDEO(),
-                u.getCOD_CURSO(),
-                u.getTITULO_VIDEO(),
-                u.getDESC_VIDEO(),
-                u.getLINK()
-            });
+            VideoDAO dao = new VideoDAO();
+
+            List<VideoMODEL> lista = null; 
+
+            lista = dao.buscarPorCod(cod);
+
+            DefaultTableModel dados = (DefaultTableModel) tabelaVideos.getModel();
+
+            dados.setNumRows(0); //limpar dados da tabela
+
+            //inserir dados da lista na tabela
+            for(VideoMODEL u: lista) {
+                dados.addRow(new Object[]{
+                    u.getCOD_VIDEO(),
+                    u.getCOD_CURSO(),
+                    u.getTITULO_VIDEO(),
+                    u.getDESC_VIDEO(),
+                    u.getLINK()
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar: " + e.getMessage());
         }
     }//GEN-LAST:event_txtPesqCodigoKeyPressed
 

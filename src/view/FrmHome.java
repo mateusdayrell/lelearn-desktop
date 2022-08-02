@@ -19,6 +19,7 @@ public class FrmHome extends javax.swing.JFrame {
     public String tipoLogado;
     
     public FrmUsuario telaUsuario = new FrmUsuario();
+    public FrmVideo telaVideo = new FrmVideo();
 
     /**
      * Creates new form TelaHome
@@ -37,7 +38,7 @@ public class FrmHome extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane2 = new javax.swing.JDesktopPane();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        areaTrabalho = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuUsuarios = new javax.swing.JMenu();
         itemMenuControleUsuarios = new javax.swing.JMenuItem();
@@ -64,16 +65,16 @@ public class FrmHome extends javax.swing.JFrame {
             }
         });
 
-        jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
+        areaTrabalho.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout areaTrabalhoLayout = new javax.swing.GroupLayout(areaTrabalho);
+        areaTrabalho.setLayout(areaTrabalhoLayout);
+        areaTrabalhoLayout.setHorizontalGroup(
+            areaTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        areaTrabalhoLayout.setVerticalGroup(
+            areaTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 275, Short.MAX_VALUE)
         );
 
@@ -128,11 +129,11 @@ public class FrmHome extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(areaTrabalho)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(areaTrabalho, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -151,15 +152,16 @@ public class FrmHome extends javax.swing.JFrame {
             FrmLogin login = new FrmLogin();
             nomeLogado = "";
             tipoLogado = "";
-            //telaVideo.dispose();
             telaUsuario.dispose();
+            telaVideo.dispose();
             this.dispose();
             login.setVisible(true);
         }
     }//GEN-LAST:event_itemMenuSairActionPerformed
 
     private void itemMenuControleVideosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuControleVideosActionPerformed
-        // TODO add your handling code here:
+        telaUsuario.setVisible(false);
+        telaVideo.setVisible(true);
     }//GEN-LAST:event_itemMenuControleVideosActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -170,7 +172,7 @@ public class FrmHome extends javax.swing.JFrame {
 
     private void itemMenuControleUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuControleUsuariosActionPerformed
         //Item controle usuarios
-        //telaVideos.dispose();as
+        telaVideo.dispose();
         telaUsuario.setVisible(true);
     }//GEN-LAST:event_itemMenuControleUsuariosActionPerformed
 
@@ -213,10 +215,10 @@ public class FrmHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane areaTrabalho;
     public javax.swing.JMenuItem itemMenuControleUsuarios;
     public javax.swing.JMenuItem itemMenuControleVideos;
     private javax.swing.JMenuItem itemMenuSair;
-    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDesktopPane jDesktopPane2;
     private javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JMenu menuSistema;

@@ -257,6 +257,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         btnPesquisar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pesquisar-16.png"))); // NOI18N
         btnPesquisar.setText("Pesquisar");
+        btnPesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarActionPerformed(evt);
@@ -271,7 +272,15 @@ public class FrmUsuario extends javax.swing.JFrame {
             new String [] {
                 "CPF", "Nome", "Tipo", "E-mail", "Telefone", "Data de nascimento", "Senha"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         tabelaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaUsuariosMouseClicked(evt);
@@ -494,6 +503,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         btnSalvar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cadastrar-24.png"))); // NOI18N
         btnSalvar.setText("Cadastrar");
+        btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -503,6 +513,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         btnExcluir.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/apagar-24.png"))); // NOI18N
         btnExcluir.setText("Excluir");
+        btnExcluir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
@@ -512,6 +523,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar-24.png"))); // NOI18N
         btnEditar.setText("Editar");
+        btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -521,6 +533,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         btnLimpar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/limpar-24.png"))); // NOI18N
         btnLimpar.setText("Limpar");
+        btnLimpar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimparActionPerformed(evt);
@@ -635,6 +648,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                 jTabbedPane1.setSelectedIndex(1);
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage());
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
     
@@ -669,6 +683,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + e.getMessage());
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
     
@@ -710,6 +725,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             
             
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao editar: " + e.getMessage());
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -741,18 +757,28 @@ public class FrmUsuario extends javax.swing.JFrame {
 
     private void tabelaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaUsuariosMouseClicked
         //Seleciona os dados da tabela e envia para aba de "DADOS"
-        jTabbedPane1.setSelectedIndex(1);
+        try {
+            jTabbedPane1.setSelectedIndex(1);
         
-        antigoCpf = tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 0).toString();
-        
-        txtCpf.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 0).toString());
-        txtNome.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 1).toString());
-        txtTipo.setSelectedItem(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 2).toString());
-        txtEmail.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 3).toString());
-        txtTelefone.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 4).toString());
-        txtDataNasc.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 5).toString());
-        txtSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
-        txtConfirmarSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
+            antigoCpf = tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 0).toString();
+
+            txtCpf.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 0).toString());
+            txtNome.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 1).toString());
+            txtTipo.setSelectedItem(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 2).toString());
+            txtEmail.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 3).toString());
+
+            txtSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
+            txtConfirmarSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
+
+            if(!(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 4) == null)){
+                txtTelefone.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 4).toString());
+            }
+            if(!(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 5) == null)){
+                txtDataNasc.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 5).toString());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao capturar dados: " + e.getMessage());
+        }
     }//GEN-LAST:event_tabelaUsuariosMouseClicked
 
     private void txtPesqCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCpfActionPerformed
