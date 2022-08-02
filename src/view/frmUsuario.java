@@ -786,56 +786,56 @@ public class FrmUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesqCpfActionPerformed
 
     private void txtPesqCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCpfKeyPressed
-        String cpf = "%" + txtPesqCpf.getText().replaceAll("[^0-9]", "") + "%";
-                
-        UsuarioDAO dao = new UsuarioDAO();
-        
-        List<UsuarioMODEL> lista = null; 
-        
-        
-        lista = dao.buscarPorCpf(cpf);
-        
-        DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
-        
-        dados.setNumRows(0); //limpar dados da tabela
-     
-        //inserir dados da lista na tabela
-        for(UsuarioMODEL u: lista) {
-            dados.addRow(new Object[]{
-                u.getCpf(),
-                u.getNome(),
-                u.getTipo(),
-                u.getEmail(),
-                u.getTelefone(),
-                dateToString(u.getDataNasc())
-            });
-        }
+//        String cpf = "%" + txtPesqCpf.getText().replaceAll("[^0-9]", "") + "%";
+//                
+//        UsuarioDAO dao = new UsuarioDAO();
+//        
+//        List<UsuarioMODEL> lista = null; 
+//        
+//        
+//        lista = dao.buscarPorCpf(cpf);
+//        
+//        DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
+//        
+//        dados.setNumRows(0); //limpar dados da tabela
+//     
+//        //inserir dados da lista na tabela
+//        for(UsuarioMODEL u: lista) {
+//            dados.addRow(new Object[]{
+//                u.getCpf(),
+//                u.getNome(),
+//                u.getTipo(),
+//                u.getEmail(),
+//                u.getTelefone(),
+//                dateToString(u.getDataNasc())
+//            });
+//        }
     }//GEN-LAST:event_txtPesqCpfKeyPressed
 
     private void txtPesqNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqNomeKeyPressed
-        String nome = "%" + txtPesqNome.getText() + "%";
-        
-        UsuarioDAO dao = new UsuarioDAO();
-        
-        List<UsuarioMODEL> lista = null; 
-        
-        lista = dao.buscarPorNome(nome);
-        
-        DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
-        
-        dados.setNumRows(0); //limpar dados da tabela
-     
-        //inserir dados da lista na tabela
-        for(UsuarioMODEL u: lista) {
-            dados.addRow(new Object[]{
-                u.getCpf(),
-                u.getNome(),
-                u.getTipo(),
-                u.getEmail(),
-                u.getTelefone(),
-                dateToString(u.getDataNasc())
-            });
-        }
+//        String nome = "%" + txtPesqNome.getText() + "%";
+//        
+//        UsuarioDAO dao = new UsuarioDAO();
+//        
+//        List<UsuarioMODEL> lista = null; 
+//        
+//        lista = dao.buscarPorNome(nome);
+//        
+//        DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
+//        
+//        dados.setNumRows(0); //limpar dados da tabela
+//     
+//        //inserir dados da lista na tabela
+//        for(UsuarioMODEL u: lista) {
+//            dados.addRow(new Object[]{
+//                u.getCpf(),
+//                u.getNome(),
+//                u.getTipo(),
+//                u.getEmail(),
+//                u.getTelefone(),
+//                dateToString(u.getDataNasc())
+//            });
+//        }
     }//GEN-LAST:event_txtPesqNomeKeyPressed
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained

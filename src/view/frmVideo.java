@@ -230,6 +230,9 @@ public class FrmVideo extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPesqCodigoKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPesqCodigoKeyTyped(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -479,7 +482,7 @@ public class FrmVideo extends javax.swing.JFrame {
         for(VideoMODEL u: lista) {
             dados.addRow(new Object[]{
                 u.getCOD_VIDEO(),
-                u.getCOD_CURSO(),
+                u.getNomeCurso(),
                 u.getTITULO_VIDEO(),
                 u.getDESC_VIDEO(),
                 u.getLINK()
@@ -570,6 +573,7 @@ public class FrmVideo extends javax.swing.JFrame {
         try {
             limparAbaDados();
             LimparAbaConsulta();
+            listar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao limpar: " + e.getMessage());
         }
@@ -609,61 +613,65 @@ public class FrmVideo extends javax.swing.JFrame {
 
     private void txtPesqCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCodigoKeyPressed
         try {
-            String cod = "%" + txtPesqCodigo.getText().replaceAll("[^0-9]", "") + "%";
-                
-            VideoDAO dao = new VideoDAO();
-
-            List<VideoMODEL> lista = null; 
-
-            lista = dao.buscarPorCod(cod);
-
-            DefaultTableModel dados = (DefaultTableModel) tabelaVideos.getModel();
-
-            dados.setNumRows(0); //limpar dados da tabela
-
-            //inserir dados da lista na tabela
-            for(VideoMODEL u: lista) {
-                dados.addRow(new Object[]{
-                    u.getCOD_VIDEO(),
-                    u.getCOD_CURSO(),
-                    u.getTITULO_VIDEO(),
-                    u.getDESC_VIDEO(),
-                    u.getLINK()
-                });
-            }
+//            String cod = "%" + txtPesqCodigo.getText().replaceAll("[^0-9]", "") + "%";
+//                
+//            VideoDAO dao = new VideoDAO();
+//
+//            List<VideoMODEL> lista = null; 
+//
+//            lista = dao.buscarPorCod(cod);
+//
+//            DefaultTableModel dados = (DefaultTableModel) tabelaVideos.getModel();
+//
+//            dados.setNumRows(0); //limpar dados da tabela
+//
+//            //inserir dados da lista na tabela
+//            for(VideoMODEL u: lista) {
+//                dados.addRow(new Object[]{
+//                    u.getCOD_VIDEO(),
+//                    u.getNomeCurso(),
+//                    u.getTITULO_VIDEO(),
+//                    u.getDESC_VIDEO(),
+//                    u.getLINK()
+//                });
+//            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao pesquisar: " + e.getMessage());
         }
     }//GEN-LAST:event_txtPesqCodigoKeyPressed
 
     private void txtPesqTituloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqTituloKeyPressed
-        String titulo = "%" + txtPesqTitulo.getText() + "%";
-        
-        VideoDAO dao = new VideoDAO();
-        
-        List<VideoMODEL> lista = null; 
-        
-        lista = dao.buscarPorTitulo(titulo);
-        
-        DefaultTableModel dados = (DefaultTableModel) tabelaVideos.getModel();
-        
-        dados.setNumRows(0); //limpar dados da tabela
-     
-        //inserir dados da lista na tabela
-        for(VideoMODEL u: lista) {
-            dados.addRow(new Object[]{
-                u.getCOD_VIDEO(),
-                u.getCOD_CURSO(),
-                u.getTITULO_VIDEO(),
-                u.getDESC_VIDEO(),
-                u.getLINK()
-            });
-        }
+//        String titulo = "%" + txtPesqTitulo.getText() + "%";
+//        
+//        VideoDAO dao = new VideoDAO();
+//        
+//        List<VideoMODEL> lista = null; 
+//        
+//        lista = dao.buscarPorTitulo(titulo);
+//        
+//        DefaultTableModel dados = (DefaultTableModel) tabelaVideos.getModel();
+//        
+//        dados.setNumRows(0); //limpar dados da tabela
+//     
+//        //inserir dados da lista na tabela
+//        for(VideoMODEL u: lista) {
+//            dados.addRow(new Object[]{
+//                u.getCOD_VIDEO(),
+//                u.getNomeCurso(),
+//                u.getTITULO_VIDEO(),
+//                u.getDESC_VIDEO(),
+//                u.getLINK()
+//            });
+//        }
     }//GEN-LAST:event_txtPesqTituloKeyPressed
 
     private void txtLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLinkActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLinkActionPerformed
+
+    private void txtPesqCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCodigoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesqCodigoKeyTyped
 
     /**
      * @param args the command line arguments
