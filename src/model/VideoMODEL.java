@@ -14,6 +14,35 @@ public class VideoMODEL {
     private String TITULO_VIDEO;
     private String DESC_VIDEO;
     private String LINK;
+    private String nomeCurso;
+
+    public String getNomeCurso() {
+        String curso = "";
+        if(null != this.COD_CURSO)switch (this.COD_CURSO) {
+            case "0001":
+                curso = "0001 | Desenvolvimento web básico";
+                break;
+            case "0002":
+                curso = "0002 | Curso completo NodeJS";
+                break;
+            case "0003":
+                curso = "0003 | Curso React Native";
+                break;
+            case "0004":
+                curso = "0004 | Curso Laravel";
+                break;
+            case "0005":
+                curso = "0005 | Curso CSS avançado";
+                break;
+            default:
+                break;
+        }
+        return curso;
+    }
+
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
+    }
 
     public String getCOD_VIDEO() {
         return COD_VIDEO;

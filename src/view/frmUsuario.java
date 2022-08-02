@@ -12,7 +12,7 @@ import model.UsuarioMODEL;
 
 /**
  *
- * @author mateu
+ * @author mateus
  */
 public class FrmUsuario extends javax.swing.JFrame {
     
@@ -646,7 +646,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             if(tela.equals(1)){
                 //Verifica se possui algum usuario selecionado
                 if ("".equals(txtCpf.getText().replaceAll("[^0-9]", ""))) {
-                    JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
+                    JOptionPane.showMessageDialog(null, "Para excluir um usuário você deve informar o seu CPF no campo 'CPF'.");
                 } 
                 else {
                     Object[] options = { "Sim", "Não" };

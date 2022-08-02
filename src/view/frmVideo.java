@@ -21,7 +21,7 @@ public class FrmVideo extends javax.swing.JFrame {
     
     public boolean verificarCampos(){
         if(txtCodigo.getText().replaceAll("[^0-9]", "").equals("") || 
-           txtCurso.getText().replaceAll("[^0-9]", "").equals("") ||
+           ((String) txtCurso.getSelectedItem()).equals("Selecione um curso") ||
            txtTitulo.getText().equals("") || txtLink.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Campo obgratório não preenchido detectado! \nPara prosseguir, preencha os seguintes campos:"
                                                                     + "\nCodigo, Curso, Título e Link."); 
@@ -58,14 +58,28 @@ public class FrmVideo extends javax.swing.JFrame {
         
         //inserir dados da lista na tabela
         for(VideoMODEL u: lista) {
+            System.out.println("listar()" + u.getNomeCurso());
             dados.addRow(new Object[]{
                 u.getCOD_VIDEO(),
-                u.getCOD_CURSO(),
+                u.getNomeCurso(),  
                 u.getTITULO_VIDEO(),
                 u.getDESC_VIDEO(),
-                u.getLINK()
+                u.getLINK(),
             });
         }        
+    }
+    
+    public void LimparAbaConsulta(){
+        txtPesqCodigo.setText("");
+        txtPesqTitulo.setText("");
+    }
+    
+    public void limparAbaDados(){
+        txtCodigo.setText("");
+        txtCurso.setSelectedItem("Selecione um curso");
+        txtTitulo.setText("");
+        txtDescricao.setText("");
+        txtLink.setText("");
     }
 
     /**
@@ -98,7 +112,7 @@ public class FrmVideo extends javax.swing.JFrame {
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaVideos = new javax.swing.JTable();
-        txtPesqCod = new javax.swing.JTextField();
+        txtPesqCodigo = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -109,9 +123,9 @@ public class FrmVideo extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtLink = new javax.swing.JTextField();
         txtCodigo = new javax.swing.JFormattedTextField();
-        txtCurso = new javax.swing.JFormattedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
+        txtCurso = new javax.swing.JComboBox<>();
         btnCadastrar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -162,7 +176,6 @@ public class FrmVideo extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         jLabel14.setText("Codigo: ");
 
-        txtPesqTitulo.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         txtPesqTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPesqTituloActionPerformed(evt);
@@ -192,7 +205,7 @@ public class FrmVideo extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CODIGO", "CURSO", "TITULO", "DESCRICAO", "LINK"
+                "COD", "CURSO", "TITULO", "DESCRICAO", "LINK"
             }
         ));
         tabelaVideos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -201,16 +214,20 @@ public class FrmVideo extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tabelaVideos);
+        if (tabelaVideos.getColumnModel().getColumnCount() > 0) {
+            tabelaVideos.getColumnModel().getColumn(0).setPreferredWidth(35);
+            tabelaVideos.getColumnModel().getColumn(0).setMaxWidth(35);
+            tabelaVideos.getColumnModel().getColumn(1).setMinWidth(120);
+        }
 
-        txtPesqCod.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
-        txtPesqCod.addActionListener(new java.awt.event.ActionListener() {
+        txtPesqCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPesqCodActionPerformed(evt);
+                txtPesqCodigoActionPerformed(evt);
             }
         });
-        txtPesqCod.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPesqCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPesqCodKeyPressed(evt);
+                txtPesqCodigoKeyPressed(evt);
             }
         });
 
@@ -225,7 +242,7 @@ public class FrmVideo extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel14)
                         .addGap(8, 8, 8)
-                        .addComponent(txtPesqCod, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPesqCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -244,7 +261,7 @@ public class FrmVideo extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addComponent(txtPesqTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar)
-                    .addComponent(txtPesqCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPesqCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -282,15 +299,13 @@ public class FrmVideo extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        try {
-            txtCurso.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         txtDescricao.setColumns(20);
+        txtDescricao.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
+        txtDescricao.setLineWrap(true);
         txtDescricao.setRows(5);
         jScrollPane2.setViewportView(txtDescricao);
+
+        txtCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um curso", "0001 | Desenvolvimento web básico", "0002 | Curso completo NodeJS", "0003 | Curso React Native", "0004 | Curso Laravel", "0005 | Curso CSS avançado" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -303,28 +318,27 @@ public class FrmVideo extends javax.swing.JFrame {
                         .addGap(13, 13, 13)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(141, 141, 141)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(109, 109, 109)
+                                .addGap(224, 224, 224)
                                 .addComponent(jLabel7))
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(128, 128, 128)
                                 .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(275, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel9)
                             .addComponent(jLabel5)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtLink)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
+                            .addComponent(txtTitulo))))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,11 +362,9 @@ public class FrmVideo extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addContainerGap(65, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jLabel9)))
+                    .addComponent(jLabel5))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Dados", jPanel3);
@@ -440,7 +452,7 @@ public class FrmVideo extends javax.swing.JFrame {
     
     //botao pesquisar
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-        String cod = "%" + txtPesqCod.getText().replaceAll("[^0-9]", "") + "%";
+        String cod = "%" + txtPesqCodigo.getText().replaceAll("[^0-9]", "") + "%";
         String titulo = "%" + txtPesqTitulo.getText() + "%";
         
         VideoDAO dao = new VideoDAO();
@@ -481,7 +493,7 @@ public class FrmVideo extends javax.swing.JFrame {
                     VideoMODEL obj = new VideoMODEL();
             
                     obj.setCOD_VIDEO(txtCodigo.getText());
-                    obj.setCOD_CURSO(txtCurso.getText());
+                    obj.setCOD_CURSO(((String) txtCurso.getSelectedItem()).substring(0,4));
                     obj.setTITULO_VIDEO(txtTitulo.getText());
                     obj.setDESC_VIDEO(txtDescricao.getText());
                     obj.setLINK(txtLink.getText());
@@ -489,14 +501,11 @@ public class FrmVideo extends javax.swing.JFrame {
 
                     VideoDAO dao = new VideoDAO();
                     dao.cadastrarVideo(obj);
+                    limparAbaDados();
                 }
             } else {
                 jTabbedPane1.setSelectedIndex(1);
-            }
-            
-            
-            
-            
+            }      
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
@@ -504,13 +513,20 @@ public class FrmVideo extends javax.swing.JFrame {
     //botao excluir
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
-            VideoMODEL obj = new VideoMODEL();
-            
-            obj.setCOD_VIDEO(txtCodigo.getText().replaceAll("[^0-9]", ""));
-            
-            VideoDAO dao = new VideoDAO();
-            dao.excluirVideo(obj);
-            
+            Integer tela = jTabbedPane1.getSelectedIndex();
+            if(tela.equals(1)){
+                if(!txtCodigo.getText().replaceAll("[^0-9]", "").equals("")) {
+                    VideoMODEL obj = new VideoMODEL();
+
+                    VideoDAO dao = new VideoDAO();
+                    dao.excluirVideo(obj);
+                    limparAbaDados();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Para excluir um vídeo você deve informar o seu código no campo CÓDIGO!");
+                }  
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!");
+            }
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -526,7 +542,7 @@ public class FrmVideo extends javax.swing.JFrame {
                         VideoMODEL obj = new VideoMODEL();
             
                         obj.setCOD_VIDEO(txtCodigo.getText());
-                        obj.setCOD_CURSO(txtCurso.getText());
+                        obj.setCOD_CURSO(((String) txtCurso.getSelectedItem()).substring(0,4));
                         obj.setTITULO_VIDEO(txtTitulo.getText());
                         obj.setDESC_VIDEO(txtDescricao.getText());
                         obj.setLINK(txtLink.getText());
@@ -545,7 +561,8 @@ public class FrmVideo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        // TODO add your handling code here:
+        limparAbaDados();
+        LimparAbaConsulta();
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTituloActionPerformed
@@ -564,23 +581,24 @@ public class FrmVideo extends javax.swing.JFrame {
         antigoCod = tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString();
         
         txtCodigo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 0).toString());
-        txtCurso.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
+//        txtCurso.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
         txtTitulo.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 2).toString());
         txtDescricao.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 3).toString());
         txtLink.setText(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 4).toString());
+        
+        txtCurso.setSelectedItem(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
     }//GEN-LAST:event_tabelaVideosMouseClicked
 
-    private void txtPesqCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCodActionPerformed
+    private void txtPesqCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCodigoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPesqCodActionPerformed
+    }//GEN-LAST:event_txtPesqCodigoActionPerformed
 
-    private void txtPesqCodKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCodKeyPressed
-        String cod = "%" + txtPesqCod.getText().replaceAll("[^0-9]", "") + "%";
+    private void txtPesqCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCodigoKeyPressed
+        String cod = "%" + txtPesqCodigo.getText().replaceAll("[^0-9]", "") + "%";
                 
         VideoDAO dao = new VideoDAO();
         
         List<VideoMODEL> lista = null; 
-        
         
         lista = dao.buscarPorCod(cod);
         
@@ -596,11 +614,9 @@ public class FrmVideo extends javax.swing.JFrame {
                 u.getTITULO_VIDEO(),
                 u.getDESC_VIDEO(),
                 u.getLINK()
-                
-                
             });
         }
-    }//GEN-LAST:event_txtPesqCodKeyPressed
+    }//GEN-LAST:event_txtPesqCodigoKeyPressed
 
     private void txtPesqTituloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqTituloKeyPressed
         String titulo = "%" + txtPesqTitulo.getText() + "%";
@@ -623,8 +639,6 @@ public class FrmVideo extends javax.swing.JFrame {
                 u.getTITULO_VIDEO(),
                 u.getDESC_VIDEO(),
                 u.getLINK()
-                
-                
             });
         }
     }//GEN-LAST:event_txtPesqTituloKeyPressed
@@ -696,10 +710,10 @@ public class FrmVideo extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTable tabelaVideos;
     private javax.swing.JFormattedTextField txtCodigo;
-    private javax.swing.JFormattedTextField txtCurso;
+    private javax.swing.JComboBox<String> txtCurso;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtLink;
-    private javax.swing.JTextField txtPesqCod;
+    private javax.swing.JTextField txtPesqCodigo;
     private javax.swing.JTextField txtPesqTitulo;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
