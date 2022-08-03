@@ -33,12 +33,12 @@ public class FrmVideo extends javax.swing.JFrame {
     public boolean verificarChavePrimaria() {
         String codigo = txtCodigo.getText().replaceAll("[^0-9]", "");
         if("".equals(codigo)){
-            JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!");
+            JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!", "Atenção", JOptionPane.WARNING_MESSAGE);
             txtCodigo.setText(antigoCod);
             return false;
         }
         if(!codigo.equals(antigoCod)){
-            JOptionPane.showMessageDialog(null, "O código do vídeo não pode ser modificado!");
+            JOptionPane.showMessageDialog(null, "O código do vídeo não pode ser modificado!", "Atenção", JOptionPane.WARNING_MESSAGE);
             txtCodigo.setText(antigoCod);
             return false;
         }
@@ -551,10 +551,10 @@ public class FrmVideo extends javax.swing.JFrame {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!");
+                JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!", "Atenção", JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
     
@@ -579,7 +579,7 @@ public class FrmVideo extends javax.swing.JFrame {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!");
+                JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!", "Atenção", JOptionPane.WARNING_MESSAGE);
             }   
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao editar: " + e.getMessage());
