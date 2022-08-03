@@ -345,7 +345,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Conslta", jPanel2);
+        jTabbedPane1.addTab("Consulta", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.addFocusListener(new java.awt.event.FocusAdapter() {
