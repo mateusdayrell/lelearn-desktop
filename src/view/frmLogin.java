@@ -309,7 +309,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 dispose(); // fecha tela após login;
             }
         } catch (Exception error) {
-            JOptionPane.showMessageDialog(null, "frmLogin: " + error.getMessage());
+            JOptionPane.showMessageDialog(null, "frmLogin: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

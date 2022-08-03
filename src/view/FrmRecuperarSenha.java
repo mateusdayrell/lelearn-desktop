@@ -175,7 +175,7 @@ public class FrmRecuperarSenha extends javax.swing.JFrame {
                 dispose();
             }
         } catch (Exception error) {
-            JOptionPane.showMessageDialog(null, "frmRecuperarSenha: " + error.getMessage());
+            JOptionPane.showMessageDialog(null, "frmRecuperarSenha: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
