@@ -1,13 +1,12 @@
-# le-learn
+# Le-Learn
 
-Siga os seguintes passos para utilizar o sistema:
+## Setup do projeto
 
-1º clone o repositório
+#### 1º Clone o repositório:  
+``` 
+git clone https://github.com/mateusdayrell/le-learn.git 
+```
 
-2º crie um banco de dados MySQL com o nome "llrn"
+#### 2º Execute o comando SQL presente no arquivo "SQL BD llrn" para criar o banco de dados "llrn" que será utilizado pelo Le-Learn.  
 
-3º execute o código SQL presente no arquivo "SQL BD llrn" no banco de dados criado
-
-4º execute o projeto no seu compilador
-
-5º adicione o arquivo "mysql-connector-java-5.1.47.jar" como bibilioteca do seu projeto
+#### 3º Adicione o arquivo "mysql-connector-java-5.1.47.jar" nas bibiliotecas do seu projeto.
