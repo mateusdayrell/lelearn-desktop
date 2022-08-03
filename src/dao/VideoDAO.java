@@ -90,7 +90,6 @@ public class VideoDAO {
     //método para editar videos
      public void editarVideo(VideoMODEL obj) {
         try {
-            System.out.println("Entrou");
             //criar o comando SQL
             String sql = "update video set COD_CURSO=?, TITULO_VIDEO=?, DESC_VIDEO=?, LINK=?"
                        + "where COD_VIDEO=?";
@@ -119,6 +118,7 @@ public class VideoDAO {
      //Método para excluir video
       public void excluirVideo(VideoMODEL obj) {
         try {
+            System.out.println("excluirVideo()" + obj.getCOD_VIDEO());
             //criar o comando SQL
             String sql = "delete from video where COD_VIDEO = ?"; // ?
             

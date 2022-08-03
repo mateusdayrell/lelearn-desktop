@@ -27,7 +27,7 @@ public class UsuarioDAO {
         // conex = new Conexao().conectaBD(); //REMOVER
         
         try {
-            String sql = "select * from usuario where cpf = ? and senha = ? ";
+            String sql = "select * from usuario where BINARY cpf = ? and BINARY senha = ? ";
             PreparedStatement pstm = conex.prepareStatement(sql);
             
             pstm.setString(1, cpf);
@@ -134,6 +134,8 @@ public class UsuarioDAO {
             
             //conectar BD e organizar comando SQL
             PreparedStatement pstm = conex.prepareStatement(sql);
+            
+            System.out.println("CPF: " + obj.getCpf());
             
             //receber valores do Model (id da ?, valor)
             //pstm.setString(1, obj.getCpf());

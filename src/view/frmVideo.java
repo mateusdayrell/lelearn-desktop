@@ -58,7 +58,6 @@ public class FrmVideo extends javax.swing.JFrame {
         
         //inserir dados da lista na tabela
         for(VideoMODEL u: lista) {
-            System.out.println("listar()" + u.getNomeCurso());
             dados.addRow(new Object[]{
                 u.getCOD_VIDEO(),
                 u.getNomeCurso(),  
@@ -523,16 +522,29 @@ public class FrmVideo extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         try {
             Integer tela = jTabbedPane1.getSelectedIndex();
+            
             if(tela.equals(1)){
-                if(!txtCodigo.getText().replaceAll("[^0-9]", "").equals("")) {
-                    VideoMODEL obj = new VideoMODEL();
+                //Verifica se possui algum usuario selecionado
+                if ("".equals(txtCodigo.getText().replaceAll("[^0-9]", ""))) {
+                    JOptionPane.showMessageDialog(null, "Para excluir um vídeo você deve informar o seu código no campo 'Código'.");
+                } 
+                else {
+                    Object[] options = { "Sim", "Não" };
+                    int p = JOptionPane.showOptionDialog(null, "Deseja realmente excluir o vídeo de código: " + txtCodigo.getText() + "?\nCaso prossiga com a exclusão, o mesmo não será mais recuperado.", "Atenção",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, 
+                            options, options[0]);
 
-                    VideoDAO dao = new VideoDAO();
-                    dao.excluirVideo(obj);
-                    limparAbaDados();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Para excluir um vídeo você deve informar o seu código no campo CÓDIGO!");
-                }  
+                    if(p == JOptionPane.YES_OPTION){
+                        VideoMODEL obj = new VideoMODEL();
+
+                        obj.setCOD_VIDEO(txtCodigo.getText().replaceAll("[^0-9]", ""));
+
+                        VideoDAO dao = new VideoDAO();
+                        dao.excluirVideo(obj);
+
+                        limparAbaDados(); 
+                    }
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!");
             }
