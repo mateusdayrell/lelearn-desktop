@@ -55,7 +55,7 @@ public class VideoDAO {
             
             return lista;
         } catch(SQLException error){
-            JOptionPane.showMessageDialog(null, "Erro ao listar Videos. \nVideoDAO: " + error.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao listar Videos. \nVideoDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         
         }
@@ -83,7 +83,7 @@ public class VideoDAO {
             
             JOptionPane.showMessageDialog(null, "Video cadastrado com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Video. \nVideoDAO: " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Video. \nVideoDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     } //fim do cadastro
     
@@ -111,7 +111,7 @@ public class VideoDAO {
             
             JOptionPane.showMessageDialog(null, "Video atualizado com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao editar Video. \nVideoDAO: " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao editar Video. \nVideoDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//fim do editar videos
      
@@ -167,7 +167,7 @@ public class VideoDAO {
 
             return lista;
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Erro ao bucar por cod_video. \nVideoDAO: " + error.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao bucar por cod_video. \nVideoDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     } //Fim do buscar
@@ -202,7 +202,7 @@ public class VideoDAO {
 
             return lista;
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Erro ao bucar por Titulo. \nVideoDAO: " + error.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao bucar por Titulo. \nVideoDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
