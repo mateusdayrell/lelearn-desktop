@@ -50,12 +50,12 @@ public class FrmUsuario extends javax.swing.JFrame {
     public boolean verificarCpf() {
         String cpf = txtCpf.getText().replaceAll("[^0-9]", "");
         if("".equals(cpf)){
-            JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
+            JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             txtCpf.setText(antigoCpf);
             return false;
         }
         if(!cpf.equals(antigoCpf)){
-            JOptionPane.showMessageDialog(null, "O CPF não pode ser modificado!");
+            JOptionPane.showMessageDialog(null, "O CPF não pode ser modificado!", "Atenção", JOptionPane.WARNING_MESSAGE);
             txtCpf.setText(antigoCpf);
             return false;
         }
@@ -112,7 +112,7 @@ public class FrmUsuario extends javax.swing.JFrame {
            ((String) txtTipo.getSelectedItem()).equals("Selecione um tipo") ||        
            txtConfirmarSenha.getText().equals("") || txtNome.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Campo obgratório não preenchido detectado! \nPara prosseguir, preencha os seguintes campos:"
-                                                                    + "\nNome, CPF, Email, Tipo, Senha e Confirmar senha."); 
+                                                                    + "\nNome, CPF, Email, Tipo, Senha e Confirmar senha.", "Atenção", JOptionPane.WARNING_MESSAGE); 
                 return false;
         }
         return true;
@@ -179,7 +179,6 @@ public class FrmUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("LeLearn - Usuários");
-        setAlwaysOnTop(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -647,7 +646,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                     }
                     else {
                         //mensagem de erro
-                        JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+                        JOptionPane.showMessageDialog(null, "As senhas não coincidem!", "Atenção", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             } else {
@@ -655,7 +654,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                 jTabbedPane1.setSelectedIndex(1);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
     
@@ -667,7 +666,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             if(tela.equals(1)){
                 //Verifica se possui algum usuario selecionado
                 if ("".equals(txtCpf.getText().replaceAll("[^0-9]", ""))) {
-                    JOptionPane.showMessageDialog(null, "Para excluir um usuário você deve informar o seu CPF no campo 'CPF'.");
+                    JOptionPane.showMessageDialog(null, "Para excluir um usuário você deve informar o seu CPF no campo 'CPF'.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 } 
                 else {
                     Object[] options = { "Sim", "Não" };
@@ -687,10 +686,10 @@ public class FrmUsuario extends javax.swing.JFrame {
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
+                JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!", "Aviso", JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnExcluirActionPerformed
     
@@ -723,16 +722,16 @@ public class FrmUsuario extends javax.swing.JFrame {
                     }
                     else {
                         //mensagem de erro
-                        JOptionPane.showMessageDialog(null, "As senhas não coincidem!");
+                        JOptionPane.showMessageDialog(null, "As senhas não coincidem!", "Atenção", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!");
+                JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }
             
             
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao editar: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao editar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 

@@ -24,7 +24,7 @@ public class FrmVideo extends javax.swing.JFrame {
            ((String) txtCurso.getSelectedItem()).equals("Selecione um curso") ||
            txtTitulo.getText().equals("") || txtLink.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Campo obgratório não preenchido detectado! \nPara prosseguir, preencha os seguintes campos:"
-                                                                    + "\nCodigo, Curso, Título e Link."); 
+                                                                    + "\nCodigo, Curso, Título e Link.", "Atenção", JOptionPane.WARNING_MESSAGE); 
                 return false;
         }
         return true;
@@ -138,7 +138,6 @@ public class FrmVideo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LeLearn - Vídeos");
-        setAlwaysOnTop(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -519,7 +518,7 @@ public class FrmVideo extends javax.swing.JFrame {
                 jTabbedPane1.setSelectedIndex(1);
             }      
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
     
@@ -531,7 +530,7 @@ public class FrmVideo extends javax.swing.JFrame {
             if(tela.equals(1)){
                 //Verifica se possui algum usuario selecionado
                 if ("".equals(txtCodigo.getText().replaceAll("[^0-9]", ""))) {
-                    JOptionPane.showMessageDialog(null, "Para excluir um vídeo você deve informar o seu código no campo 'Código'.");
+                    JOptionPane.showMessageDialog(null, "Para excluir um vídeo você deve informar o seu código no campo 'Código'.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 } 
                 else {
                     Object[] options = { "Sim", "Não" };
@@ -592,7 +591,7 @@ public class FrmVideo extends javax.swing.JFrame {
             LimparAbaConsulta();
             listar();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao limpar: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao limpar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLimparActionPerformed
 
@@ -620,7 +619,7 @@ public class FrmVideo extends javax.swing.JFrame {
 
             txtCurso.setSelectedItem(tabelaVideos.getValueAt(tabelaVideos.getSelectedRow(), 1).toString());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao capturar dados da tabela: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao capturar dados da tabela: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_tabelaVideosMouseClicked
 
@@ -654,7 +653,7 @@ public class FrmVideo extends javax.swing.JFrame {
 //                });
 //            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao pesquisar: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao pesquisar: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_txtPesqCodigoKeyPressed
 
