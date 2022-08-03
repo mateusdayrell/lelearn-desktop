@@ -27,19 +27,18 @@ public class FrmUsuario extends javax.swing.JFrame {
         DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
         
         dados.setNumRows(0); //limpar dados da tabela
-        
         //inserir dados da lista na tabela
-        for(UsuarioMODEL u: lista) {
+        lista.forEach(u -> {
             dados.addRow(new Object[]{
                 u.getCpf(),
                 u.getNome(),
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                dateToString(u.getDataNasc()),
+                (u.getDataNasc() == null ? null : dateToString(u.getDataNasc())),
                 u.getSenha()
             });
-        }        
+        });        
     }
     
     //verifica se os campos de senha são iguais
@@ -732,6 +731,7 @@ public class FrmUsuario extends javax.swing.JFrame {
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         limparAbaConsulta();
         limparAbaDados();
+        listar();
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
@@ -757,7 +757,7 @@ public class FrmUsuario extends javax.swing.JFrame {
 
     private void tabelaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaUsuariosMouseClicked
         //Seleciona os dados da tabela e envia para aba de "DADOS"
-        try {
+//        try {
             jTabbedPane1.setSelectedIndex(1);
         
             antigoCpf = tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 0).toString();
@@ -765,10 +765,16 @@ public class FrmUsuario extends javax.swing.JFrame {
             txtCpf.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 0).toString());
             txtNome.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 1).toString());
             txtTipo.setSelectedItem(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 2).toString());
-            txtEmail.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 3).toString());
-
-            txtSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
-            txtConfirmarSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
+            
+            if(!(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6) == null)){
+                txtEmail.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 3).toString());
+            }
+               
+            if(!(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6) == null)){
+                txtSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
+                txtConfirmarSenha.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6).toString());
+            }
+            
 
             if(!(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 4) == null)){
                 txtTelefone.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 4).toString());
@@ -776,9 +782,9 @@ public class FrmUsuario extends javax.swing.JFrame {
             if(!(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 5) == null)){
                 txtDataNasc.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 5).toString());
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao capturar dados: " + e.getMessage());
-        }
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(null, "Erro ao capturar dados: " + e.getMessage());
+//        }
     }//GEN-LAST:event_tabelaUsuariosMouseClicked
 
     private void txtPesqCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCpfActionPerformed
