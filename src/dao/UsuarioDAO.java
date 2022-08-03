@@ -37,7 +37,7 @@ public class UsuarioDAO {
             
             if(rs.next()) { //usuario logou
                 //chamar tela
-                JOptionPane.showMessageDialog(null, "Bem-vindo");
+                JOptionPane.showMessageDialog(null, "Bem-vindo ao LeLearn!");
                 FrmHome tela = new FrmHome();
                 tela.nomeLogado = rs.getString("NOME");
                 tela.tipoLogado = rs.getString("TIPO");
@@ -51,11 +51,11 @@ public class UsuarioDAO {
                 return true;
             } else {
                 //mensagem de erro
-                JOptionPane.showMessageDialog(null, "CPF ou senha inválidos");
+                JOptionPane.showMessageDialog(null, "CPF ou senha inválidos", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 return false;
             }            
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "UsuarioDAO: " + error.getMessage());
+            JOptionPane.showMessageDialog(null, "UsuarioDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
@@ -92,7 +92,7 @@ public class UsuarioDAO {
 
             return lista;
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Erro ao listar usuários. \nUsuarioDAO: " + error.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao listar usuários. \nUsuarioDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
@@ -121,7 +121,7 @@ public class UsuarioDAO {
             
             JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário. \nUsuarioDAO: " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário. \nUsuarioDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -151,7 +151,7 @@ public class UsuarioDAO {
 
             JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao editar Usuário. \nUsuarioDAO: " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao editar Usuário. \nUsuarioDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -174,10 +174,10 @@ public class UsuarioDAO {
                 
                 JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
             } else {
-                JOptionPane.showMessageDialog(null, "O administrador principal não pode ser excluído!");
+                JOptionPane.showMessageDialog(null, "O administrador principal não pode ser excluído!", "Atenção", JOptionPane.WARNING_MESSAGE);
             }
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir Usuário. \nUsuarioDAO: " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao excluir Usuário. \nUsuarioDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -212,7 +212,7 @@ public class UsuarioDAO {
 
             return lista;
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Erro ao bucar por cpf. \nUsuarioDAO: " + error.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao bucar por cpf. \nUsuarioDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
@@ -248,7 +248,7 @@ public class UsuarioDAO {
 
             return lista;
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Erro ao bucar por cpf. \nUsuarioDAO: " + error.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao bucar por cpf. \nUsuarioDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }
@@ -268,18 +268,18 @@ public class UsuarioDAO {
             if(rs.next()) { //usuario logou
                 //chamar tela
                 JOptionPane.showMessageDialog(null, "Um email foi enviado para o administrador do sistema para que a sua senha seja redefinida."
-                                                                + "\nApós a redefinição você receberá uma notificação no seu e-mail informando sobre a sua nova senha.");
+                                                                + "\nApós a redefinição você receberá uma notificação no seu e-mail informando sobre a sua nova senha.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 FrmLogin telaLogin = new FrmLogin();   
                 FrmRecuperarSenha telaSenha = new FrmRecuperarSenha();   
                 telaLogin.setVisible(true);
                 return true;
             } else {
                 //mensagem de erro
-                JOptionPane.showMessageDialog(null, "CPF ou email inválidos");
+                JOptionPane.showMessageDialog(null, "CPF ou email inválidos", "Atenção", JOptionPane.ERROR_MESSAGE);
                 return false;
             }            
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "UsuarioDAO - Recuperar Senha: " + error.getMessage());
+            JOptionPane.showMessageDialog(null, "UsuarioDAO - Recuperar Senha: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
