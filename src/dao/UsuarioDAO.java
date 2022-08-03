@@ -129,13 +129,11 @@ public class UsuarioDAO {
     public void editarUsuario(UsuarioMODEL obj) {
         try {
             //criar o comando SQL
-            String sql = "update usuario set NOME=?, TELEFONE=?, EMAIL=?, SENHA=?, TIPO=?, DATANASC=?" // , DATANASC=?
-                       + "where CPF=?";
+            String sql = "update usuario set NOME=?, TELEFONE=?, EMAIL=?, SENHA=?, TIPO=?, DATANASC=? where CPF like ?";
             
             //conectar BD e organizar comando SQL
             PreparedStatement pstm = conex.prepareStatement(sql);
             
-            System.out.println("CPF: " + obj.getCpf());
             
             //receber valores do Model (id da ?, valor)
             //pstm.setString(1, obj.getCpf());
@@ -147,10 +145,10 @@ public class UsuarioDAO {
             pstm.setString(6, obj.getDataNasc());
             
             pstm.setString(7, obj.getCpf());
-            
+
             pstm.execute(); //executar comando
             pstm.close();   //encerrar conexao
-            
+
             JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!");
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao editar Usuário. \nUsuarioDAO: " + erro.getMessage());
@@ -169,10 +167,15 @@ public class UsuarioDAO {
             //receber valores do Model (id da ?, valor)
             pstm.setString(1, obj.getCpf());
             
-            pstm.execute(); //executar comando
-            pstm.close();   //encerrar conexao
             
-            JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+            if(!("00000000001".equals(obj.getCpf()))){
+                pstm.execute(); //executar comando
+                pstm.close();   //encerrar conexao
+                
+                JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "O administrador principal não pode ser excluído!");
+            }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir Usuário. \nUsuarioDAO: " + erro.getMessage());
         }

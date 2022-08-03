@@ -179,6 +179,8 @@ public class FrmUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("LeLearn - Usuários");
+        setAlwaysOnTop(true);
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -576,6 +578,8 @@ public class FrmUsuario extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
+        jTabbedPane1.getAccessibleContext().setAccessibleName("Consulta");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -647,6 +651,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                     }
                 }
             } else {
+                limparAbaDados();
                 jTabbedPane1.setSelectedIndex(1);
             }
         } catch (Exception e) {
