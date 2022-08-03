@@ -301,6 +301,9 @@ public class FrmUsuario extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPesqCpfKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesqCpfKeyReleased(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -787,38 +790,8 @@ public class FrmUsuario extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_tabelaUsuariosMouseClicked
 
-    private void txtPesqCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCpfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPesqCpfActionPerformed
-
-    private void txtPesqCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCpfKeyPressed
-//        String cpf = "%" + txtPesqCpf.getText().replaceAll("[^0-9]", "") + "%";
-//                
-//        UsuarioDAO dao = new UsuarioDAO();
-//        
-//        List<UsuarioMODEL> lista = null; 
-//        
-//        
-//        lista = dao.buscarPorCpf(cpf);
-//        
-//        DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
-//        
-//        dados.setNumRows(0); //limpar dados da tabela
-//     
-//        //inserir dados da lista na tabela
-//        for(UsuarioMODEL u: lista) {
-//            dados.addRow(new Object[]{
-//                u.getCpf(),
-//                u.getNome(),
-//                u.getTipo(),
-//                u.getEmail(),
-//                u.getTelefone(),
-//                dateToString(u.getDataNasc())
-//            });
-//        }
-    }//GEN-LAST:event_txtPesqCpfKeyPressed
-
     private void txtPesqNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqNomeKeyPressed
+        txtPesqCpf.setText("");
 //        String nome = "%" + txtPesqNome.getText() + "%";
 //        
 //        UsuarioDAO dao = new UsuarioDAO();
@@ -871,6 +844,44 @@ public class FrmUsuario extends javax.swing.JFrame {
     private void jPanel3FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel3FocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel3FocusGained
+
+    private void txtPesqCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCpfKeyPressed
+        txtPesqNome.setText("");
+        
+//        String cpf = "%" + txtPesqCpf.getText().replaceAll("[^0-9]", "") + "%";
+        //
+        //        UsuarioDAO dao = new UsuarioDAO();
+        //
+        //        List<UsuarioMODEL> lista = null;
+        //
+        //
+        //        lista = dao.buscarPorCpf(cpf);
+        //
+        //        DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
+        //
+        //        dados.setNumRows(0); //limpar dados da tabela
+        //
+        //        //inserir dados da lista na tabela
+        //        for(UsuarioMODEL u: lista) {
+            //            dados.addRow(new Object[]{
+                //                u.getCpf(),
+                //                u.getNome(),
+                //                u.getTipo(),
+                //                u.getEmail(),
+                //                u.getTelefone(),
+                //                dateToString(u.getDataNasc())
+                //            });
+        //        }
+    }//GEN-LAST:event_txtPesqCpfKeyPressed
+
+    private void txtPesqCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesqCpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesqCpfActionPerformed
+
+    private void txtPesqCpfKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCpfKeyReleased
+        // TODO add your handling code here:
+        txtPesqCpf.setText(txtPesqCpf.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_txtPesqCpfKeyReleased
 
     /**
      * @param args the command line arguments
