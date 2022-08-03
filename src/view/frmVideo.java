@@ -230,6 +230,9 @@ public class FrmVideo extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtPesqCodigoKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesqCodigoKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPesqCodigoKeyTyped(evt);
             }
@@ -512,6 +515,7 @@ public class FrmVideo extends javax.swing.JFrame {
                     limparAbaDados();
                 }
             } else {
+                limparAbaDados();
                 jTabbedPane1.setSelectedIndex(1);
             }      
         } catch (Exception e) {
@@ -625,6 +629,7 @@ public class FrmVideo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesqCodigoActionPerformed
 
     private void txtPesqCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCodigoKeyPressed
+        txtPesqTitulo.setText("");
         try {
 //            String cod = "%" + txtPesqCodigo.getText().replaceAll("[^0-9]", "") + "%";
 //                
@@ -654,6 +659,7 @@ public class FrmVideo extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesqCodigoKeyPressed
 
     private void txtPesqTituloKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqTituloKeyPressed
+        txtPesqCodigo.setText("");
 //        String titulo = "%" + txtPesqTitulo.getText() + "%";
 //        
 //        VideoDAO dao = new VideoDAO();
@@ -685,6 +691,11 @@ public class FrmVideo extends javax.swing.JFrame {
     private void txtPesqCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCodigoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPesqCodigoKeyTyped
+
+    private void txtPesqCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesqCodigoKeyReleased
+        // TODO add your handling code here:
+        txtPesqCodigo.setText(txtPesqCodigo.getText().replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_txtPesqCodigoKeyReleased
 
     /**
      * @param args the command line arguments

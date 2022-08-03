@@ -142,6 +142,9 @@ public class FrmHome extends javax.swing.JFrame {
 
     private void itemMenuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuSairActionPerformed
         // Logout
+        telaUsuario.setAlwaysOnTop(false);
+        telaVideo.setAlwaysOnTop(false);
+        
         Object[] options = { "Sim", "Não" };
         
         int p = JOptionPane.showOptionDialog(null, "Deseja realmente sair do sistema?", "Sair",
@@ -156,6 +159,9 @@ public class FrmHome extends javax.swing.JFrame {
             telaVideo.dispose();
             this.dispose();
             login.setVisible(true);
+        } else if (p == JOptionPane.NO_OPTION){
+            telaUsuario.setAlwaysOnTop(true);
+            telaVideo.setAlwaysOnTop(true);
         }
     }//GEN-LAST:event_itemMenuSairActionPerformed
 
