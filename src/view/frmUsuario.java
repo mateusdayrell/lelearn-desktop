@@ -607,7 +607,7 @@ public class FrmUsuario extends javax.swing.JFrame {
         DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
         
         dados.setNumRows(0); //limpar dados da tabela
-     
+        
         //inserir dados da lista na tabela
         for(UsuarioMODEL u: lista) {
             dados.addRow(new Object[]{
@@ -616,9 +616,11 @@ public class FrmUsuario extends javax.swing.JFrame {
                 u.getTipo(),
                 u.getEmail(),
                 u.getTelefone(),
-                dateToString(u.getDataNasc())
+                dateToString(u.getDataNasc()),
+                u.getSenha(),
             });
         }
+        
     }//GEN-LAST:event_btnPesquisarActionPerformed
     
     //botao salvar
@@ -773,7 +775,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             txtNome.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 1).toString());
             txtTipo.setSelectedItem(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 2).toString());
             
-            if(!(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 6) == null)){
+            if(!(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 3) == null)){
                 txtEmail.setText(tabelaUsuarios.getValueAt(tabelaUsuarios.getSelectedRow(), 3).toString());
             }
                

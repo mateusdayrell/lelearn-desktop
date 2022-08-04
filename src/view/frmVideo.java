@@ -136,7 +136,7 @@ public class FrmVideo extends javax.swing.JFrame {
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("LeLearn - Vídeos");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -149,7 +149,7 @@ public class FrmVideo extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 38)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/video-camera-64.png"))); // NOI18N
-        jLabel1.setText("Videos");
+        jLabel1.setText("Vídeos");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
