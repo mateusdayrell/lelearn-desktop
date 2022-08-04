@@ -132,6 +132,8 @@ public class UsuarioDAO {
     //método para editar usuários
     public void editarUsuario(UsuarioMODEL obj) {
         try {
+            List<UsuarioMODEL> lista = this.buscarPorCpf(obj.getCpf());
+            
             //criar o comando SQL
             String sql = "update usuario set NOME=?, TELEFONE=?, EMAIL=?, SENHA=?, TIPO=?, DATANASC=? where CPF like ?";
             
@@ -149,11 +151,15 @@ public class UsuarioDAO {
             pstm.setString(6, obj.getDataNasc());
             
             pstm.setString(7, obj.getCpf());
+            
+            if(lista.size() > 0) {
+                pstm.execute(); //executar comando
+                pstm.close();   //encerrar conexao
 
-            pstm.execute(); //executar comando
-            pstm.close();   //encerrar conexao
-
-            JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!");
+                JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário com CPF " + obj.getCpf() + " não encontrado!");
+            }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao editar Usuário. \nUsuarioDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -162,6 +168,7 @@ public class UsuarioDAO {
     //método para excluir usuarios
     public void excluirUsuario(UsuarioMODEL obj) {
         try {
+            List<UsuarioMODEL> lista = this.buscarPorCpf(obj.getCpf());
             //criar o comando SQL
             String sql = "delete from usuario where CPF = ?"; // ?
             
@@ -171,14 +178,17 @@ public class UsuarioDAO {
             //receber valores do Model (id da ?, valor)
             pstm.setString(1, obj.getCpf());
             
-            
-            if(!("00000000001".equals(obj.getCpf()))){
-                pstm.execute(); //executar comando
-                pstm.close();   //encerrar conexao
-                
-                JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+            if(lista.size() > 0) {
+                if(!("00000000001".equals(obj.getCpf()))){
+                    pstm.execute(); //executar comando
+                    pstm.close();   //encerrar conexao
+
+                    JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "O administrador principal não pode ser excluído!", "Atenção", JOptionPane.WARNING_MESSAGE);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "O administrador principal não pode ser excluído!", "Atenção", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Usuário com CPF " + obj.getCpf() + " não encontrado!");
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir Usuário. \nUsuarioDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);

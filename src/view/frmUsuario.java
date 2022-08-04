@@ -22,6 +22,7 @@ public class FrmUsuario extends javax.swing.JFrame {
     //Metodo listar tabela
     public void listar() {
         UsuarioDAO dao = new UsuarioDAO();
+        antigoCpf = "";
         
         List<UsuarioMODEL> lista = dao.listarUsuarios();
         DefaultTableModel dados = (DefaultTableModel) tabelaUsuarios.getModel();
@@ -54,7 +55,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             txtCpf.setText(antigoCpf);
             return false;
         }
-        if(!cpf.equals(antigoCpf)){
+        if(!cpf.equals(antigoCpf) && !"".equals(antigoCpf)){
             JOptionPane.showMessageDialog(null, "O CPF não pode ser modificado!", "Atenção", JOptionPane.WARNING_MESSAGE);
             txtCpf.setText(antigoCpf);
             return false;
@@ -98,12 +99,14 @@ public class FrmUsuario extends javax.swing.JFrame {
         txtConfirmarSenha.setText("");
         txtTelefone.setText("");
         txtDataNasc.setText("");
+        antigoCpf = "";
     }
     
     public void limparAbaConsulta(){
         txtPesqCpf.setText("");
         txtPesqNome.setText("");
         btnPesquisar.doClick();
+        antigoCpf = "";
     }
     
     public boolean verificarCampos(){
@@ -702,7 +705,7 @@ public class FrmUsuario extends javax.swing.JFrame {
             Integer tela = jTabbedPane1.getSelectedIndex();
             
             if(tela.equals(1)){
-                if(verificarCampos()){
+                //if(verificarCampos()){
                     if(verificarSenha()){
                         if(verificarCpf()) {
                             UsuarioMODEL obj = new UsuarioMODEL();
@@ -726,7 +729,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                         //mensagem de erro
                         JOptionPane.showMessageDialog(null, "As senhas não coincidem!", "Atenção", JOptionPane.WARNING_MESSAGE);
                     }
-                }
+                //}
             } else {
                 JOptionPane.showMessageDialog(null, "Nenhum usuário selecionado!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             }
