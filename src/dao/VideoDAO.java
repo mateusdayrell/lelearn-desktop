@@ -55,7 +55,7 @@ public class VideoDAO {
             
             return lista;
         } catch(SQLException error){
-            JOptionPane.showMessageDialog(null, "Erro ao listar Videos. \nVideoDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao listar Vídeos. \nVideoDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         
         }
@@ -81,9 +81,13 @@ public class VideoDAO {
             pstm.execute(); //executar comando
             pstm.close();   //encerrar conexao
             
-            JOptionPane.showMessageDialog(null, "Video cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Vídeo cadastrado com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Video. \nVideoDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            if(erro.getErrorCode() == 1062){
+              JOptionPane.showMessageDialog(null, "Erro ao cadastrar Vídeo. \nUm vídeo com o código " + obj.getCOD_VIDEO() + " já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);  
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao cadastrar Vídeo. \nVideoDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }
     } //fim do cadastro
     
@@ -109,9 +113,9 @@ public class VideoDAO {
             pstm.execute(); //executar comando
             pstm.close();   //encerrar conexao
             
-            JOptionPane.showMessageDialog(null, "Video atualizado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Vídeo atualizado com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao editar Video. \nVideoDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao editar Vídeo. \nVídeoDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//fim do editar videos
      
@@ -131,9 +135,9 @@ public class VideoDAO {
             pstm.execute(); //executar comando
             pstm.close();   //encerrar conexao
             
-            JOptionPane.showMessageDialog(null, "Video excluído com sucesso!");
+            JOptionPane.showMessageDialog(null, "Vídeo excluído com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir Video. \nUsuarioDAO: " + erro.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao excluir Vídeo. \nUsuarioDAO: " + erro.getMessage());
         }
     } //Fim do excluir video
 
@@ -202,7 +206,7 @@ public class VideoDAO {
 
             return lista;
         } catch (SQLException error) {
-            JOptionPane.showMessageDialog(null, "Erro ao bucar por Titulo. \nVideoDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao bucar por Título. \nVideoDAO: " + error.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             return null;
         }
     }

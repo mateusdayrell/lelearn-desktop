@@ -121,7 +121,11 @@ public class UsuarioDAO {
             
             JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
         } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário. \nUsuarioDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            if(erro.getErrorCode() == 1062){
+              JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário. \nUm usuário com o CPF " + obj.getCpf() + " já está cadastrado.", "Erro", JOptionPane.ERROR_MESSAGE);  
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao cadastrar Usuário. \nUsuarioDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     
