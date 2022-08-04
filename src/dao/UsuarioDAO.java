@@ -206,6 +206,7 @@ public class UsuarioDAO {
                 obj.setTelefone(rs.getString("TELEFONE"));
                 obj.setTipo(rs.getString("TIPO"));
                 obj.setDataNasc(rs.getString("DATANASC"));
+                obj.setSenha(rs.getString("SENHA"));
 
                 lista.add(obj);
             }
@@ -242,6 +243,7 @@ public class UsuarioDAO {
                 obj.setTelefone(rs.getString("TELEFONE"));
                 obj.setTipo(rs.getString("TIPO"));
                 obj.setDataNasc(rs.getString("DATANASC"));
+                obj.setSenha(rs.getString("SENHA"));
 
                 lista.add(obj);
             }
