@@ -37,11 +37,11 @@ public class FrmVideo extends javax.swing.JFrame {
             txtCodigo.setText(antigoCod);
             return false;
         }
-        if(!codigo.equals(antigoCod)){
-            JOptionPane.showMessageDialog(null, "O código do vídeo não pode ser modificado!", "Atenção", JOptionPane.WARNING_MESSAGE);
-            txtCodigo.setText(antigoCod);
-            return false;
-        }
+//        if(!codigo.equals(antigoCod)){
+//            JOptionPane.showMessageDialog(null, "O código do vídeo não pode ser modificado!", "Atenção", JOptionPane.WARNING_MESSAGE);
+//            txtCodigo.setText(antigoCod);
+//            return false;
+//        }
         else{
             return true;
         }
@@ -65,12 +65,14 @@ public class FrmVideo extends javax.swing.JFrame {
                 u.getDESC_VIDEO(),
                 u.getLINK(),
             });
-        }        
+        }
+        antigoCod = "";
     }
     
     public void LimparAbaConsulta(){
         txtPesqCodigo.setText("");
         txtPesqTitulo.setText("");
+        antigoCod = "";
     }
     
     public void limparAbaDados(){
@@ -79,6 +81,7 @@ public class FrmVideo extends javax.swing.JFrame {
         txtTitulo.setText("");
         txtDescricao.setText("");
         txtLink.setText("");
+        antigoCod = "";
     }
 
     /**
@@ -564,7 +567,7 @@ public class FrmVideo extends javax.swing.JFrame {
             Integer tela = jTabbedPane1.getSelectedIndex();
             
             if(tela.equals(1)){
-                if(verificarCampos()){
+                //if(verificarCampos()){
                     if(verificarChavePrimaria()){
                         VideoMODEL obj = new VideoMODEL();
             
@@ -578,7 +581,7 @@ public class FrmVideo extends javax.swing.JFrame {
                         dao.editarVideo(obj);
                         LimparAbaConsulta();
                     }
-                }
+                //}
             } else {
                 JOptionPane.showMessageDialog(null, "Nenhum vídeo selecionado!", "Atenção", JOptionPane.WARNING_MESSAGE);
             }   

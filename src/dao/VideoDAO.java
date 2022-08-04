@@ -94,6 +94,7 @@ public class VideoDAO {
     //método para editar videos
      public void editarVideo(VideoMODEL obj) {
         try {
+            List<VideoMODEL> lista = this.buscarPorCod(obj.getCOD_VIDEO());
             //criar o comando SQL
             String sql = "update video set COD_CURSO=?, TITULO_VIDEO=?, DESC_VIDEO=?, LINK=?"
                        + "where COD_VIDEO=?";
@@ -109,11 +110,14 @@ public class VideoDAO {
             pstm.setString(4, obj.getLINK());
             pstm.setString(5, obj.getCOD_VIDEO());
             
-            
-            pstm.execute(); //executar comando
-            pstm.close();   //encerrar conexao
-            
-            JOptionPane.showMessageDialog(null, "Vídeo atualizado com sucesso!");
+            if(lista.size() > 0) {
+                pstm.execute(); //executar comando
+                pstm.close();   //encerrar conexao
+
+                JOptionPane.showMessageDialog(null, "Vídeo atualizado com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Vídeo com código " + obj.getCOD_VIDEO() + " não encontrado!");
+            }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao editar Vídeo. \nVídeoDAO: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -122,7 +126,8 @@ public class VideoDAO {
      //Método para excluir video
       public void excluirVideo(VideoMODEL obj) {
         try {
-            System.out.println("excluirVideo()" + obj.getCOD_VIDEO());
+            List<VideoMODEL> lista = this.buscarPorCod(obj.getCOD_VIDEO());
+            
             //criar o comando SQL
             String sql = "delete from video where COD_VIDEO = ?"; // ?
             
@@ -132,10 +137,14 @@ public class VideoDAO {
             //receber valores do Model (id da ?, valor)
             pstm.setString(1, obj.getCOD_VIDEO());
             
-            pstm.execute(); //executar comando
-            pstm.close();   //encerrar conexao
-            
-            JOptionPane.showMessageDialog(null, "Vídeo excluído com sucesso!");
+            if(lista.size() > 0) {
+                pstm.execute(); //executar comando
+                pstm.close();   //encerrar conexao
+
+                JOptionPane.showMessageDialog(null, "Vídeo excluído com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Vídeo com código " + obj.getCOD_VIDEO() + " não encontrado!");
+            }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir Vídeo. \nUsuarioDAO: " + erro.getMessage());
         }

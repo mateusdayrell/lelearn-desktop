@@ -55,11 +55,11 @@ public class FrmUsuario extends javax.swing.JFrame {
             txtCpf.setText(antigoCpf);
             return false;
         }
-        if(!cpf.equals(antigoCpf) && !"".equals(antigoCpf)){
-            JOptionPane.showMessageDialog(null, "O CPF não pode ser modificado!", "Atenção", JOptionPane.WARNING_MESSAGE);
-            txtCpf.setText(antigoCpf);
-            return false;
-        }
+//        if(!cpf.equals(antigoCpf) && !"".equals(antigoCpf)){
+//            JOptionPane.showMessageDialog(null, "O CPF não pode ser modificado!", "Atenção", JOptionPane.WARNING_MESSAGE);
+//            txtCpf.setText(antigoCpf);
+//            return false;
+//        }
         else{
             return true;
         }
