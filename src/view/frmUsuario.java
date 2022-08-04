@@ -685,6 +685,7 @@ public class FrmUsuario extends javax.swing.JFrame {
                         dao.excluirUsuario(obj);
 
                         limparAbaDados(); 
+                        limparAbaConsulta();
                     }
                 }
             } else {
@@ -715,11 +716,10 @@ public class FrmUsuario extends javax.swing.JFrame {
 
                             obj.setSenha(txtSenha.getText().equals("") ? null : txtSenha.getText());
 
-                            //obj.setAntigoCpf(antigoCpf);
-
                             UsuarioDAO dao = new UsuarioDAO();
                             dao.editarUsuario(obj);
                             //limparAbaDados();
+                            limparAbaConsulta();
                         }
                     }
                     else {

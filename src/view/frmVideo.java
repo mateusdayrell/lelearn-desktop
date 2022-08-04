@@ -547,6 +547,7 @@ public class FrmVideo extends javax.swing.JFrame {
                         dao.excluirVideo(obj);
 
                         limparAbaDados(); 
+                        LimparAbaConsulta();
                     }
                 }
             } else {
@@ -575,6 +576,7 @@ public class FrmVideo extends javax.swing.JFrame {
 
                         VideoDAO dao = new VideoDAO();
                         dao.editarVideo(obj);
+                        LimparAbaConsulta();
                     }
                 }
             } else {
